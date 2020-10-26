@@ -13,4 +13,19 @@
     <string name="app_id">baa6152b05beaf3d9e7b37d9370cba0d</string>
     <string name="forgetpassword">Quên mật khẩu?</string>
     <string name="register">Đăng ký mới</string>
+    <string name="odau">Ở đâu</string>
+    <string name="angi">Ăn gì?</string>
+    <string name="moinhat">Moi nhat</string>
+    <string name="danhmuc">Danh muc</string>
+    <string name="khuvuc">HN</string>
+    <string name="gantoi">Gần tôi</string>
+    <string name="giaohang">Giao hàng</string>
+    <string name="gameandfun">Game and fun</string>
+    <string name="danhgia">Review</string>
+    <string name="blog">Blog</string>
+    <string name="topmember">Top member</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
