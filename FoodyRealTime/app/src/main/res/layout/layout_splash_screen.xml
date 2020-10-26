@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F42626"
+    tools:context=".View.SlashScreenActivity">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="285dp"
+        android:layout_height="94dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="346dp"
+        android:layout_marginEnd="64dp"
+        android:src="@drawable/foody"
+        app:layout_constraintBottom_toTopOf="@+id/txtVersion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtVersion"
+        android:layout_width="106dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="204dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/txtNameCty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="12dp"
+        android:text="@string/name_company"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="107dp"
+        android:layout_height="18dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/txtNameCty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtVersion">
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:indeterminateTint="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/txtLoading"
+            android:layout_width="82dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/loading"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

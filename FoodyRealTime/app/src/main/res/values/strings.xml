@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">FoodyRealTime</string>
+    <string name="name_version">Phiên bản</string>
+    <string name="loading">Đang tải...</string>
+    <string name="name_company">sonphamhong</string>
+    <string name="btnLogin">Đăng Nhập</string>
+    <string name="btnRegister">Đăng Ký</string>
+    <string name="hintEmail">Email</string>
+    <string name="hintPassword">Pasword</string>
+    <string name="hintComfirmPassword">Cormfirm Pasword</string>
+    <string name="textOR">Hoặc</string>
+    <string name="facebook_app_id">Facebook App ID</string>
+    <string name="app_id">baa6152b05beaf3d9e7b37d9370cba0d</string>
+    <string name="forgetpassword">Quên mật khẩu?</string>
+    <string name="register">Đăng ký mới</string>
+</resources>
