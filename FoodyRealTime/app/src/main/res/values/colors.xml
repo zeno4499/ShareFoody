@@ -5,5 +5,7 @@
     <color name="colorAccent">#FFFFFF</color>
     <color name="tranparentBackgroudLogin">#66000000</color>
     <color name="colorFacebook">#189aca</color>
+    <color name="colorBlack">#000</color>
+    <color name="colorBackgroundHomeApp">#CCC</color>
 
 </resources>
