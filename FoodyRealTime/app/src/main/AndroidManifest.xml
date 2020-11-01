@@ -14,7 +14,6 @@
         <activity android:name=".View.RegisterActivity"></activity>
         <activity android:name=".View.ForgetPasswordActivity"></activity>
 
-        <activity android:name=".View.HomeActivity" />
         <activity android:name=".View.LoginActivity" />
         <activity android:name=".View.SlashScreenActivity">
             <intent-filter>
@@ -23,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".View.HomeActivity"></activity>
     </application>
 
 </manifest>
