@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/backgrounddangnhap"
+    android:background="@drawable/food"
     tools:context=". View.LoginActivity">
 
     <LinearLayout
@@ -52,7 +52,7 @@
             android:textColorHint="#FFFFFF" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnDangnhap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -64,13 +64,15 @@
             android:paddingLeft="60dp"
             android:paddingRight="60dp"
             android:text="@string/btnLogin"
+            android:textAllCaps="false"
             android:textColor="#FF0000" />
 
         <LinearLayout
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
             <View
@@ -96,22 +98,35 @@
                 android:background="@color/colorAccent" />
         </LinearLayout>
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/btnLoginGG"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp" />
-
-        <com.facebook.login.widget.LoginButton
+        <Button
             android:id="@+id/btnLoginFB"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:background="@color/colorFacebook"
+            android:drawableLeft="@drawable/icon_facebook"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:paddingBottom="10dp"
+            android:text="@string/dangnhapbangfacebook"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/btnLoginGG"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/colorPrimaryDark"
+            android:drawableLeft="@drawable/icon_google2"
+            android:text="@string/dangnhapbanggoogle"
+            android:textAllCaps="false"
+
+            android:textColor="@color/colorAccent" />
 
         <LinearLayout
             android:layout_width="match_parent"

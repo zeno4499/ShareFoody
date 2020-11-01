@@ -11,6 +11,22 @@
     <string name="textOR">Hoặc</string>
     <string name="facebook_app_id">Facebook App ID</string>
     <string name="app_id">baa6152b05beaf3d9e7b37d9370cba0d</string>
-    <string name="forgetpassword">Quên mật khẩu?</string>
-    <string name="register">Đăng ký mới</string>
+    <string name="dangnhapbangfacebook">Đăng nhập bằng Facebook</string>
+    <string name="dangnhapbanggoogle">Đăng nhập bằng Google</string>
+    <string name="forgetpassword">Quên mật khẩu ?</string>
+    <string name="register"><u>Đăng ký mới</u></string>
+    <string name="thongbaoloiEmailDK">Bạn chưa nhập Email</string>
+    <string name="thongbaoloimatkhauDK">Bạn chưa nhập PassWord</string>
+    <string name="thongbaonhaplaiMK">Vui lòng nhập giống mật khẩu ở trên !</string>
+    <string name="thongbaoDKthanhcong">Bạn đã đăng kí thành công !</string>
+    <string name="dangxuli">Đang xử lí</string>
+    <string name="dangnhapthatbai">Tài khoản không hợp lệ</string>
+    <string name="khoiphucmk">Khôi phục mật khẩu</string>
+    <string name="chuoikhoiphucmk">Bạn vui lòng nhập địa chỉ Email vào khung bên dưới để khôi phục mật khẩu !!</string>
+    <string name="sendemail">Send Email</string>
+    <string name="chuoithanhvien">Bạn không phải là thành viên ?</string>
+    <string name="Emailkhonghople">Email không hợp lề. Vui lòng nhập đúng định dạng Email</string>
+    <string name="guiMKquaEmail">Send Email SuccessFully!!</string>
+
+
 </resources>

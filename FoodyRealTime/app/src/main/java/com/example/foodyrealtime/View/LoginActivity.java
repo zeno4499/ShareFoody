@@ -1,15 +1,16 @@
 package com.example.foodyrealtime.View;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodyrealtime.R;
 import com.google.android.gms.auth.api.Auth;
@@ -19,7 +20,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.internal.OnConnectionFailedListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,8 +31,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity implements OnConnectionFailedListener, View.OnClickListener, FirebaseAuth.AuthStateListener {
 
-    private SignInButton btnSignGG;
+    private Button btnSignGG;
     private Button btnLogin;
+    private EditText edEmail, edPasswword;
     private TextView txtForgetpassword;
     private TextView txtRegister;
     GoogleSignInClient mGoogleSignInClient;
@@ -44,8 +45,10 @@ public class LoginActivity extends AppCompatActivity implements OnConnectionFail
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        edEmail = findViewById(R.id.edtEmail);
+        edPasswword = findViewById(R.id.edtPassword);
         btnSignGG = findViewById(R.id.btnLoginGG);
-        btnLogin = findViewById(R.id.btnLogin);
+        btnLogin = findViewById(R.id.btnDangnhap);
         txtForgetpassword = findViewById(R.id.txtForgetPassword);
         txtRegister = findViewById(R.id.txtRegister);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -53,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements OnConnectionFail
 
         btnSignGG.setOnClickListener(this);
         txtRegister.setOnClickListener(this);
+        txtForgetpassword.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         CreateClientGG();
 
@@ -146,12 +150,30 @@ public class LoginActivity extends AppCompatActivity implements OnConnectionFail
                 startActivity(iRegister);
                 break;
             }
-            case R.id.btnLogin: {
-                Toast.makeText(LoginActivity.this, "btn login!", Toast.LENGTH_LONG).show();
+            case R.id.btnDangnhap: {
+                dangnhap();
+                break;
+            }
+            case R.id.txtForgetPassword: {
+                Intent intent = new Intent(this, ForgetPasswordActivity.class);
+                startActivity(intent);
                 break;
             }
         }
     }//end listen event click to button login gg  and email
+
+    private void dangnhap() {
+        String email = edEmail.getText().toString();
+        String password = edPasswword.getText().toString();
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, getString(R.string.dangnhapthatbai), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
     /**
      * event check user Login is Successfull or logOut

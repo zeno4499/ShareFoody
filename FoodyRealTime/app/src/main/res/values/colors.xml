@@ -3,6 +3,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#F42626</color>
     <color name="colorAccent">#FFFFFF</color>
-    <color name="tranparentBackgroudLogin">#E6F42626</color>
+    <color name="tranparentBackgroudLogin">#66000000</color>
+    <color name="colorFacebook">#189aca</color>
 
 </resources>
