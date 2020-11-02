@@ -9,6 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.foodyrealtime.Controller.DangkiController;
+import com.example.foodyrealtime.Model.ThanhvienModel;
 import com.example.foodyrealtime.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +21,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     Button btnRegister;
     FirebaseAuth firebaseAuth;
     EditText edEmailDK, edPasswwordDK, edNhaplaiPasswordDK;
+    DangkiController dangkiController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
 
-        String email = edEmailDK.getText().toString();
+        final String email = edEmailDK.getText().toString();
         String matkhau = edPasswwordDK.getText().toString();
         String nhaplaimatkhau = edNhaplaiPasswordDK.getText().toString();
         if (email.trim().length() == 0) {
@@ -50,6 +53,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+                        ThanhvienModel thanhvienModel = new ThanhvienModel();
+                        thanhvienModel.setHoten(email);
+                        thanhvienModel.setHinhanh("user.png");
+                        String uid = task.getResult().getUser().getUid();
+                        dangkiController = new DangkiController();
+                        dangkiController.themthanhvienController(thanhvienModel,uid);
+
                         Toast.makeText(RegisterActivity.this, getString(R.string.thongbaoDKthanhcong), Toast.LENGTH_SHORT).show();
                     }
                 }
