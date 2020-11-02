@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements OnConnectionFail
                 //get account
                 GoogleSignInAccount account = signInResult.getSignInAccount();
                 //get tokenid
-                String tokenID = signInResult.getSignInAccount().getIdToken();
+                String tokenID = account.getIdToken();
                 ChungThucDangNhap(tokenID);
             }
         }

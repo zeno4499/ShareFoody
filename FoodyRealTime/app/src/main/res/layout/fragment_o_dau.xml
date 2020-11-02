@@ -182,6 +182,12 @@
 
                 </view>
 
+                <ProgressBar
+                    android:id="@+id/progress_bar_ODAu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp" />
                 <!--nhung component co scroll khong dung voi nhau-->
                 <view
                     android:id="@+id/recycleODau"

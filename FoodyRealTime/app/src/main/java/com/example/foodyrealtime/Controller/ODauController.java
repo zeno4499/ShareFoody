@@ -1,6 +1,8 @@
 package com.example.foodyrealtime.Controller;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +25,7 @@ public class ODauController {
         this.quanAnModel = new QuanAnModel();
     }
 
-    public void getDanhSachQuanAnController(final RecyclerView recyclerViewODau) {
+    public void getDanhSachQuanAnController(final RecyclerView recyclerViewODau, final ProgressBar progressBar) {
         final List<QuanAnModel> quanAnModelList = new ArrayList<>();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerViewODau.setLayoutManager(layoutManager);
@@ -36,6 +38,7 @@ public class ODauController {
             public void getDanhSachQuanAnModel(QuanAnModel quanAnModel) {
                 quanAnModelList.add(quanAnModel);
                 adapterRecyclerODau.notifyDataSetChanged();
+                progressBar.setVisibility(View.GONE);
             }
         };
         quanAnModel.getDanhSachQuanAn(oDauInterface);
