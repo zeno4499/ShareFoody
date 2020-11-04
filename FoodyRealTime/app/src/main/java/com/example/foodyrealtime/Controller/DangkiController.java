@@ -10,6 +10,6 @@ public class DangkiController {
     }
 
     public void themthanhvienController(ThanhVienModel thanhvienModel, String uid) {
-        thanhvienModel.themthongtinthanhvien(thanhvienModel, uid);
+        thanhvienModel.themThongTinThanhVien(thanhvienModel, uid);
     }
 }
