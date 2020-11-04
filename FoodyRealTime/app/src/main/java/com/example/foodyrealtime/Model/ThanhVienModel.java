@@ -5,8 +5,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ThanhVienModel {
     private DatabaseReference dataNodeThanhvien;
-    private String hoten,
-            hinhanh;
+    private String hoten, hinhanh;
 
     public ThanhVienModel() {
         dataNodeThanhvien = FirebaseDatabase.getInstance().getReference().child("thanhviens");
@@ -27,9 +26,8 @@ public class ThanhVienModel {
     public void setHinhanh(String hinhanh) {
         this.hinhanh = hinhanh;
     }
-    public void themthongtinthanhvien(ThanhVienModel thanhvienModel, String uid){
 
+    public void themthongtinthanhvien(ThanhVienModel thanhvienModel, String uid) {
         dataNodeThanhvien.child(uid).setValue(thanhvienModel);
-
     }
 }
