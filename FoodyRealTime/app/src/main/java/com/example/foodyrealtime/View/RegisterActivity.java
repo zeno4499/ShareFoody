@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         thanhvienModel.setHinhanh("user.png");
                         String uid = task.getResult().getUser().getUid();
                         dangkiController = new DangkiController();
-                        dangkiController.themthanhvienController(thanhvienModel,uid);
+                        dangkiController.themthanhvienController(thanhvienModel, uid);
 
                         Toast.makeText(RegisterActivity.this, getString(R.string.thongbaoDKthanhcong), Toast.LENGTH_SHORT).show();
                     }
