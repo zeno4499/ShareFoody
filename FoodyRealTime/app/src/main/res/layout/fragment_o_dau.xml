@@ -68,6 +68,7 @@
         </RadioGroup>
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestScrollViewODau"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -175,19 +176,19 @@
 
                 </LinearLayout>
 
-                <view
-                    class="androidx.appcompat.app.AlertController$RecycleListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </view>
-
                 <!--nhung component co scroll khong dung voi nhau-->
                 <view
                     android:id="@+id/recycleODau"
                     class="androidx.recyclerview.widget.RecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="516dp" />
+                    android:layout_height="match_parent" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_ODAu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

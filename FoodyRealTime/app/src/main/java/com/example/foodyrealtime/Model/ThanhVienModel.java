@@ -3,12 +3,12 @@ package com.example.foodyrealtime.Model;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class ThanhVienModel {
+public class ThanhvienModel {
     private DatabaseReference dataNodeThanhvien;
     private String hoten,
             hinhanh;
 
-    public ThanhVienModel() {
+    public ThanhvienModel() {
         dataNodeThanhvien = FirebaseDatabase.getInstance().getReference().child("thanhviens");
     }
 
@@ -27,8 +27,9 @@ public class ThanhVienModel {
     public void setHinhanh(String hinhanh) {
         this.hinhanh = hinhanh;
     }
+    public void themthongtinthanhvien(ThanhvienModel thanhvienModel, String uid){
 
-    public void themthongtinthanhvien(ThanhVienModel thanhvienModel, String uid) {
         dataNodeThanhvien.child(uid).setValue(thanhvienModel);
+
     }
 }

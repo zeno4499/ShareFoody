@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +16,7 @@
             android:padding="5dp">
 
             <TextView
+                android:id="@+id/txtDiemTrungBinhQuanAn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="5dp"
@@ -38,12 +40,14 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/txtDiaChiQuanAnODau"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="thon 7 xa thach hoa thach that HN" />
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txtKhoangCachQuanAnODAu"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="bottom"
@@ -70,12 +74,15 @@
             android:visibility="gone" />
         <!--comment-->
         <LinearLayout
+            android:id="@+id/containerBinhLuan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:visibility="gone">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageUser"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="5dp"
@@ -87,10 +94,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txtTieuDeBinhLuan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="gu chi house"
@@ -98,24 +107,29 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/txtNoiDungBinhLuan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="thon 7 xa thach hoa thach that HN" />
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txtChamDiemBinhLuan"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="6.5" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/containerBinhLuan2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:visibility="gone">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageUser2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="5dp"
@@ -127,10 +141,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txtTieuDeBinhLuan2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="gu chi house"
@@ -138,12 +154,14 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/txtNoiDungBinhLuan2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="thon 7 xa thach hoa thach that HN" />
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txtChamDiemBinhLuan2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="6.5" />
@@ -155,6 +173,7 @@
             android:layout_marginLeft="50dp">
 
             <TextView
+                android:id="@+id/txtTongBinhLuan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -162,9 +181,10 @@
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="156" />
+                android:text="0" />
 
             <TextView
+                android:id="@+id/txtTongHinhAnh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -172,7 +192,7 @@
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="500" />
+                android:text="0" />
         </LinearLayout>
 
 

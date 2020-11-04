@@ -4,12 +4,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ThanhVienModel {
-    private DatabaseReference dataNodeThanhvien;
-    private String hoten,
-            hinhanh;
+    String hoten, hinhanh;
+    private DatabaseReference databaseReference;
 
     public ThanhVienModel() {
-        dataNodeThanhvien = FirebaseDatabase.getInstance().getReference().child("thanhviens");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("thanhviens");
     }
 
     public String getHoten() {
@@ -28,7 +27,7 @@ public class ThanhVienModel {
         this.hinhanh = hinhanh;
     }
 
-    public void themthongtinthanhvien(ThanhVienModel thanhvienModel, String uid) {
-        dataNodeThanhvien.child(uid).setValue(thanhvienModel);
+    public void ThemThongTinThanhVien(ThanhVienModel thanhVienModel, String uid) {
+        databaseReference.child(uid).setValue(thanhVienModel);
     }
 }
