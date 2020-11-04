@@ -133,8 +133,8 @@ public class QuanAnModel {
                     for (DataSnapshot valueBinhLuan : snapshotBinhLuan.getChildren()) {
                         BinhLuanModel binhLuanModel = valueBinhLuan.getValue(BinhLuanModel.class);
                         binhLuanModel.setMabinhluan(valueBinhLuan.getKey());
-                        ThanhvienModel thanhVienModel = snapshot.child("thanhviens")
-                                .child(binhLuanModel.getMauser()).getValue(ThanhvienModel.class);
+                        ThanhVienModel thanhVienModel = snapshot.child("thanhviens")
+                                .child(binhLuanModel.getMauser()).getValue(ThanhVienModel.class);
                         binhLuanModel.setThanhVienModel(thanhVienModel);
 
                         List<String> hinhanhBinhLuanList = new ArrayList<>();
