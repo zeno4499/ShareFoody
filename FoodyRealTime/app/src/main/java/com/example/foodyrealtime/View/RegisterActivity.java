@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodyrealtime.Controller.DangkiController;
-import com.example.foodyrealtime.Model.ThanhvienModel;
+import com.example.foodyrealtime.Model.ThanhVienModel;
 import com.example.foodyrealtime.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        ThanhvienModel thanhvienModel = new ThanhvienModel();
+                        ThanhVienModel thanhvienModel = new ThanhVienModel();
                         thanhvienModel.setHoten(email);
                         thanhvienModel.setHinhanh("user.png");
                         String uid = task.getResult().getUser().getUid();

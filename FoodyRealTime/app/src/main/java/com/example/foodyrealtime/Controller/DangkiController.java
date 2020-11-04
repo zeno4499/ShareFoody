@@ -1,13 +1,13 @@
 package com.example.foodyrealtime.Controller;
 
-import com.example.foodyrealtime.Model.ThanhvienModel;
+import com.example.foodyrealtime.Model.ThanhVienModel;
 
 public class DangkiController {
-    ThanhvienModel thanhvienModel;
+    ThanhVienModel thanhvienModel;
     public DangkiController() {
-        thanhvienModel = new ThanhvienModel();
+        thanhvienModel = new ThanhVienModel();
     }
-    public  void themthanhvienController(ThanhvienModel thanhvienModel,String uid){
+    public  void themthanhvienController(ThanhVienModel thanhvienModel, String uid){
         thanhvienModel.themthongtinthanhvien(thanhvienModel,uid);
     }
 }
