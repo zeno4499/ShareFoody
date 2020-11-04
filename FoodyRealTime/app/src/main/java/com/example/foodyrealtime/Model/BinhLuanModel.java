@@ -5,7 +5,7 @@ import java.util.List;
 public class BinhLuanModel {
     double chamdiem;
     long luotthich;
-    ThanhVienModel thanhVienModel;
+    ThanhvienModel thanhVienModel;
     String noidung;
     String tieude;
     String mauser;
@@ -47,7 +47,7 @@ public class BinhLuanModel {
         this.mauser = mauser;
     }
 
-    public BinhLuanModel(long chamdiem, long luotthich, ThanhVienModel thanhVienModel, String noidung, String tieude) {
+    public BinhLuanModel(long chamdiem, long luotthich, ThanhvienModel thanhVienModel, String noidung, String tieude) {
         this.chamdiem = chamdiem;
         this.luotthich = luotthich;
         this.thanhVienModel = thanhVienModel;
@@ -64,11 +64,11 @@ public class BinhLuanModel {
         this.luotthich = luotthich;
     }
 
-    public ThanhVienModel getThanhVienModel() {
+    public ThanhvienModel getThanhVienModel() {
         return thanhVienModel;
     }
 
-    public void setThanhVienModel(ThanhVienModel thanhVienModel) {
+    public void setThanhVienModel(ThanhvienModel thanhVienModel) {
         this.thanhVienModel = thanhVienModel;
     }
 
