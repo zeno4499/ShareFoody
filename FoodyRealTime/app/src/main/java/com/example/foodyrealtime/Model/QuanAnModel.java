@@ -1,7 +1,10 @@
 package com.example.foodyrealtime.Model;
 
 import android.graphics.Bitmap;
+import android.icu.text.Replaceable;
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,10 +16,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuanAnModel {
+public class QuanAnModel implements Parcelable {
     boolean giaohang;
     String giodongcua;
     String giomocua;
@@ -28,6 +32,31 @@ public class QuanAnModel {
     List<BinhLuanModel> binhLuanModelList;
     List<ChiNhanhQuanAnModel> chiNhanhQuanAnModelList;
     List<Bitmap> bitmapsList;
+
+    protected QuanAnModel(Parcel in) {
+        giaohang = in.readByte() != 0;
+        giodongcua = in.readString();
+        giomocua = in.readString();
+        tenquanan = in.readString();
+        videogioithieu = in.readString();
+        maquanan = in.readString();
+        tienich = in.createStringArrayList();
+        hinhanhquanan = in.createStringArrayList();
+        bitmapsList = in.createTypedArrayList(Bitmap.CREATOR);
+        luotthich = in.readLong();
+    }
+
+    public static final Creator<QuanAnModel> CREATOR = new Creator<QuanAnModel>() {
+        @Override
+        public QuanAnModel createFromParcel(Parcel in) {
+            return new QuanAnModel(in);
+        }
+
+        @Override
+        public QuanAnModel[] newArray(int size) {
+            return new QuanAnModel[size];
+        }
+    };
 
     public List<Bitmap> getBitmapsList() {
         return bitmapsList;
@@ -215,5 +244,23 @@ public class QuanAnModel {
             quanAnModel.setChiNhanhQuanAnModelList(chiNhanhQuanAnModels);
             oDauInterface.getDanhSachQuanAnModel(quanAnModel);
         }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeByte((byte) (giaohang ? 1 : 0));
+        dest.writeString(giodongcua);
+        dest.writeString(giomocua);
+        dest.writeString(tenquanan);
+        dest.writeString(videogioithieu);
+        dest.writeString(maquanan);
+        dest.writeStringList(tienich);
+        dest.writeStringList(hinhanhquanan);
+        dest.writeLong(luotthich);
     }
 }

@@ -1,8 +1,10 @@
 package com.example.foodyrealtime.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener;
 
 import com.example.foodyrealtime.Model.BinhLuanModel;
 import com.example.foodyrealtime.Model.ChiNhanhQuanAnModel;
 import com.example.foodyrealtime.Model.QuanAnModel;
 import com.example.foodyrealtime.R;
+import com.example.foodyrealtime.View.ChiTietQuanAnActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -53,6 +56,7 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
         CircleImageView circleImageUser, circleImageUser2;
         Button btnDatMonODau;
         ImageView imageHinhQuanAnODau;
+        CardView cardViewODau;
 
         LinearLayout containerBinhLuan, containerBinhLuan2;
 
@@ -76,6 +80,7 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
             txtDiaChiQuanAnODau = itemView.findViewById(R.id.txtDiaChiQuanAnODau);
             txtKhoangCachQuanAnODau = itemView.findViewById(R.id.txtKhoangCachQuanAnODAu);
             txtDiemTrungBinhQuanAn = itemView.findViewById(R.id.txtDiemTrungBinhQuanAn);
+            cardViewODau = itemView.findViewById(R.id.cardViewODau);
 
         }
     }
@@ -97,7 +102,7 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
 
     @Override
     public void onBindViewHolder(@NonNull final AdapterRecyclerODau.ViewHolder holder, int position) {
-        QuanAnModel quanAnModel = quanAnModelList.get(position);
+        final QuanAnModel quanAnModel = quanAnModelList.get(position);
         holder.txtTenQuanAnODau.setText(quanAnModel.getTenquanan());
         if (quanAnModel.isGiaohang()) {
             holder.btnDatMonODau.setVisibility(View.VISIBLE);
@@ -156,7 +161,14 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
             holder.txtDiaChiQuanAnODau.setText(chiNhanhQuanAnModelTam.getDiachi());
             holder.txtKhoangCachQuanAnODau.setText(String.format("%.1f", chiNhanhQuanAnModelTam.getKhoangcach()) + "km");
         }
-
+        holder.cardViewODau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iChiTietQuanAn = new Intent(context, ChiTietQuanAnActivity.class);
+                iChiTietQuanAn.putExtra("quanan", quanAnModel);
+                context.startActivity(iChiTietQuanAn);
+            }
+        });
     }
 
     private void setHinhAnhBinhLuan(final CircleImageView circleImageView, String linkHinh) {

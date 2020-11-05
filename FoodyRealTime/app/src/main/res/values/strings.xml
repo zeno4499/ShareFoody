@@ -41,5 +41,33 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="datmon">Đặt món</string>
+    <string name="title_activity_chi_tiet_quan_an">ChiTietQuanAnActivity</string>
+
+    <string name="taianh">Tải ảnh</string>
+    <string name="luulai">Lưu lại</string>
+    <string name="binhluan">Bình luận</string>
+    <string name="checkin">Check-in</string>
+    <string name="chiase">Chia sẽ</string>
+    <string name="dangmocua">Đang mở cửa</string>
+    <string name="dadongcua">Đã đóng cửa</string>
+    <string name="capnhatwifi">Cập nhật wifi</string>
+    <string name="nhaptenwifi">Nhập tên wifi</string>
+    <string name="nhapmatkhauwifi">Nhập mật khẩu wifi</string>
+    <string name="dongy">Đồng ý</string>
+    <string name="loithemwifi">Vui lòng nhập đầy đủ thông tin wifi</string>
+    <string name="themthanhcong">Thêm thành công ! </string>
+    <string name="dang">Đăng</string>
+    <string name="thucdon">Thực đơn</string>
+    <string name="tenquanan">Tên quán ăn</string>
+    <string name="giatoida">Giá tối đa</string>
+    <string name="giatoithieu">Giá tối thiểu</string>
+    <string name="khonggiaohang">Không giao hàng</string>
+    <string name="giomocua">Giờ mở cửa</string>
+    <string name="giodongcua">Giờ đóng cửa</string>
+    <string name="chinhanh">Chi nhánh</string>
+    <string name="tenmon">Tên món</string>
+    <string name="giatien">Giá tiền</string>
+    <string name="luuquanan">Lưu quán ăn</string>
+    <string name="themthucdon">Thêm thực đơn</string>
 
 </resources>
