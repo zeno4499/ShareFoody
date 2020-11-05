@@ -30,7 +30,6 @@
                 android:id="@+id/txtMatKhauWifi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/wallet_holo_blue_light"
                 android:textStyle="bold"
                 android:textAlignment="textEnd"
                 android:gravity="end"

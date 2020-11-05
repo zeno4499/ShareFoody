@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodyrealtime.Model.BinhLuanModel;
@@ -55,6 +56,7 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
         CircleImageView circleImageUser, circleImageUser2;
         Button btnDatMonODau;
         ImageView imageHinhQuanAnODau;
+        CardView cardViewODau;
 
         LinearLayout containerBinhLuan, containerBinhLuan2;
 
@@ -78,6 +80,7 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
             txtDiaChiQuanAnODau = itemView.findViewById(R.id.txtDiaChiQuanAnODau);
             txtKhoangCachQuanAnODau = itemView.findViewById(R.id.txtKhoangCachQuanAnODAu);
             txtDiemTrungBinhQuanAn = itemView.findViewById(R.id.txtDiemTrungBinhQuanAn);
+            cardViewODau = itemView.findViewById(R.id.cardViewODau);
 
         }
     }
@@ -158,7 +161,7 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
             holder.txtDiaChiQuanAnODau.setText(chiNhanhQuanAnModelTam.getDiachi());
             holder.txtKhoangCachQuanAnODau.setText(String.format("%.1f", chiNhanhQuanAnModelTam.getKhoangcach()) + "km");
         }
-        holder.txtTenQuanAnODau.setOnClickListener(new View.OnClickListener() {
+        holder.cardViewODau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent iChiTietQuanAn = new Intent(context, ChiTietQuanAnActivity.class);
