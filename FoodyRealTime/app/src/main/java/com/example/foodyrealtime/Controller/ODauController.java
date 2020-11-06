@@ -34,7 +34,7 @@ public class ODauController {
         quanAnModel = new QuanAnModel();
     }
 
-    public void getDanhSachQuanAnController(NestedScrollView nestedScrollView, final RecyclerView recyclerViewODau, final ProgressBar progressBar, final Location viTriHienTai) {
+    public void getDanhSachQuanAnController(Context context, NestedScrollView nestedScrollView, final RecyclerView recyclerViewODau, final ProgressBar progressBar, final Location viTriHienTai) {
 
         final List<QuanAnModel> quanAnModelList = new ArrayList<>();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
