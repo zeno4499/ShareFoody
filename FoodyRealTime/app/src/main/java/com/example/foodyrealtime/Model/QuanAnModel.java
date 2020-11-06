@@ -1,11 +1,9 @@
 package com.example.foodyrealtime.Model;
 
 import android.graphics.Bitmap;
-import android.icu.text.Replaceable;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -16,7 +14,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +39,12 @@ public class QuanAnModel implements Parcelable {
         maquanan = in.readString();
         tienich = in.createStringArrayList();
         hinhanhquanan = in.createStringArrayList();
-        bitmapsList = in.createTypedArrayList(Bitmap.CREATOR);
+        // bitmapsList = in.createTypedArrayList(Bitmap.CREATOR);
         luotthich = in.readLong();
+        chiNhanhQuanAnModelList = new ArrayList<ChiNhanhQuanAnModel>();
+        in.readTypedList(chiNhanhQuanAnModelList, ChiNhanhQuanAnModel.CREATOR);
+        binhLuanModelList = new ArrayList<BinhLuanModel>();
+        in.readTypedList(binhLuanModelList, BinhLuanModel.CREATOR);
     }
 
     public static final Creator<QuanAnModel> CREATOR = new Creator<QuanAnModel>() {
@@ -262,5 +263,7 @@ public class QuanAnModel implements Parcelable {
         dest.writeStringList(tienich);
         dest.writeStringList(hinhanhquanan);
         dest.writeLong(luotthich);
+        dest.writeTypedList(chiNhanhQuanAnModelList);
+        dest.writeTypedList(binhLuanModelList);
     }
 }

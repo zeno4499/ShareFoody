@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -150,6 +149,7 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
         }
 
         //llấy chi tiết địa chỉ quán ăn và hiển thị khoảng cách
+        //lấy chi nhánh quán ăn và hiển thị địa chỉ và km
         if (quanAnModel.getChiNhanhQuanAnModelList().size() > 0) {
             ChiNhanhQuanAnModel chiNhanhQuanAnModelTam = quanAnModel.getChiNhanhQuanAnModelList().get(0);
             for (ChiNhanhQuanAnModel chiNhanhQuanAnModel : quanAnModel.getChiNhanhQuanAnModelList()) {
@@ -167,6 +167,15 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
                 Intent iChiTietQuanAn = new Intent(context, ChiTietQuanAnActivity.class);
                 iChiTietQuanAn.putExtra("quanan", quanAnModel);
                 context.startActivity(iChiTietQuanAn);
+            }
+        });
+        //chỉ vào card view  quán ăn show ra chi tiết về quán ăn
+        holder.cardViewODau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ChiTietQuanAnActivity.class);
+                intent.putExtra("quanan", quanAnModel);
+                context.startActivity(intent);
             }
         });
     }

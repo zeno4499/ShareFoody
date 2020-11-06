@@ -1,8 +1,30 @@
 package com.example.foodyrealtime.Model;
 
-public class ChiNhanhQuanAnModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ChiNhanhQuanAnModel implements Parcelable {
     String diachi;
     double latitude, longtitude, khoangcach;
+
+    protected ChiNhanhQuanAnModel(Parcel in) {
+        diachi = in.readString();
+        latitude = in.readDouble();
+        longtitude = in.readDouble();
+        khoangcach = in.readDouble();
+    }
+
+    public static final Creator<ChiNhanhQuanAnModel> CREATOR = new Creator<ChiNhanhQuanAnModel>() {
+        @Override
+        public ChiNhanhQuanAnModel createFromParcel(Parcel in) {
+            return new ChiNhanhQuanAnModel(in);
+        }
+
+        @Override
+        public ChiNhanhQuanAnModel[] newArray(int size) {
+            return new ChiNhanhQuanAnModel[size];
+        }
+    };
 
     public String getDiachi() {
         return diachi;
@@ -37,5 +59,18 @@ public class ChiNhanhQuanAnModel {
     }
 
     public ChiNhanhQuanAnModel() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(diachi);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longtitude);
+        dest.writeDouble(khoangcach);
     }
 }

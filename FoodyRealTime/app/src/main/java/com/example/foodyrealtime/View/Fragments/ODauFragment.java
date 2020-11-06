@@ -45,6 +45,6 @@ public class ODauFragment extends Fragment {
         vitrihientai.setLatitude(Double.parseDouble(sharedPreferences.getString("latitude", "0")));
         vitrihientai.setLongitude(Double.parseDouble(sharedPreferences.getString("longtitude", "0")));
         oDauController = new ODauController(getContext());
-        oDauController.getDanhSachQuanAnController(nestedScrollView, recyclerODau, progressBar, vitrihientai);
+        oDauController.getDanhSachQuanAnController(getContext(),nestedScrollView, recyclerODau, progressBar, vitrihientai);
     }
 }

@@ -1,9 +1,5 @@
 package com.example.foodyrealtime.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +7,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodyrealtime.Adapter.ApdaterBinhLuan;
 import com.example.foodyrealtime.Controller.ChiTietQuanController;
@@ -40,9 +41,9 @@ public class ChiTietQuanAnActivity extends AppCompatActivity {
     ThucDonController thucDonController;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chi_tiet_quan_an);
+        setContentView(R.layout.layout_main_chitietquanan);
         quanAnModel = getIntent().getParcelableExtra("quanan");
 
         txtTenQuanAn = findViewById(R.id.txtTenQuanAn);
@@ -58,7 +59,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity {
         txtGioiHanGia = findViewById(R.id.txtGioiHanGia);
         toolbar = findViewById(R.id.toolbar);
         recyclerViewBinhLuan = findViewById(R.id.recyclerBinhLuanChiTietQuanAn);
-        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        //mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         khungTienIch = findViewById(R.id.khungTienTich);
         txtTenWifi = findViewById(R.id.txtTenWifi);
         txtMatKhauWifi = findViewById(R.id.txtMatKhauWifi);
@@ -69,5 +70,16 @@ public class ChiTietQuanAnActivity extends AppCompatActivity {
         videoView = findViewById(R.id.videoTrailer);
 //        imgPlayTrailer = findViewById(R.id.imgPLayTrailer);
         recyclerThucDon = findViewById(R.id.recyclerThucDon);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        txtTenQuanAn.setText(quanAnModel.getTenquanan());
+        txtDiaChi.setText(quanAnModel.getChiNhanhQuanAnModelList().get(0).getDiachi());
+        txtThoiGianHoatDong.setText(quanAnModel.getGiomocua() + "-" + quanAnModel.getGiodongcua());
+        txtTongSoHinhAnh.setText(quanAnModel.getHinhanhquanan().size() + "");
+        txtTongSoBinhLuan.setText(quanAnModel.getBinhLuanModelList().size() + "");
     }
 }
