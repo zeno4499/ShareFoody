@@ -1,16 +1,23 @@
 package com.example.foodyrealtime.View;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodyrealtime.Adapter.ApdaterBinhLuan;
@@ -20,8 +27,18 @@ import com.example.foodyrealtime.Model.QuanAnModel;
 import com.example.foodyrealtime.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-public class ChiTietQuanAnActivity extends AppCompatActivity {
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnClickListener {
     TextView txtTenQuanAn, txtDiaChi, txtThoiGianHoatDong, txtTrangThaiHoatDong, txtTongSoHinhAnh, txtTongSoBinhLuan, txtTongSoCheckIn, txtTongSoLuuLai, txtTieuDeToolbar, txtGioiHanGia, txtTenWifi, txtMatKhauWifi, txtNgayDangWifi;
     ImageView imHinhAnhQuanAn, imgPlayTrailer;
     Button btnBinhLuan;
@@ -70,6 +87,15 @@ public class ChiTietQuanAnActivity extends AppCompatActivity {
         videoView = findViewById(R.id.videoTrailer);
 //        imgPlayTrailer = findViewById(R.id.imgPLayTrailer);
         recyclerThucDon = findViewById(R.id.recyclerThucDon);
+        btnBinhLuan.setOnClickListener(this);
+
+        thucDonController = new ThucDonController();
+        HienThiChiTietQuanAn();
+    }
+
+    private void HienThiChiTietQuanAn() {
+
+        thucDonController.getDanhSachThucDonQuanAnTheoMa(this, quanAnModel.getMaquanan(), recyclerThucDon);
     }
 
     @Override
@@ -81,5 +107,20 @@ public class ChiTietQuanAnActivity extends AppCompatActivity {
         txtThoiGianHoatDong.setText(quanAnModel.getGiomocua() + "-" + quanAnModel.getGiodongcua());
         txtTongSoHinhAnh.setText(quanAnModel.getHinhanhquanan().size() + "");
         txtTongSoBinhLuan.setText(quanAnModel.getBinhLuanModelList().size() + "");
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.btnBinhLuan: {
+                Intent iBinhLuan = new Intent(this, BinhLuanActivity.class);
+                iBinhLuan.putExtra("maquanan", quanAnModel.getMaquanan());
+                iBinhLuan.putExtra("tenquan", quanAnModel.getTenquanan());
+                iBinhLuan.putExtra("diachi", quanAnModel.getChiNhanhQuanAnModelList().get(0).getDiachi());
+                startActivity(iBinhLuan);
+                break;
+            }
+        }
     }
 }
