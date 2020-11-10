@@ -30,6 +30,26 @@ public class QuanAnModel implements Parcelable {
     List<ChiNhanhQuanAnModel> chiNhanhQuanAnModelList;
     List<Bitmap> bitmapsList;
 
+    long giatoida;
+    long giatoithieu;
+    long luotthich;
+
+    public long getGiatoida() {
+        return giatoida;
+    }
+
+    public void setGiatoida(long giatoida) {
+        this.giatoida = giatoida;
+    }
+
+    public long getGiatoithieu() {
+        return giatoithieu;
+    }
+
+    public void setGiatoithieu(long giatoithieu) {
+        this.giatoithieu = giatoithieu;
+    }
+
     protected QuanAnModel(Parcel in) {
         giaohang = in.readByte() != 0;
         giodongcua = in.readString();
@@ -41,6 +61,8 @@ public class QuanAnModel implements Parcelable {
         hinhanhquanan = in.createStringArrayList();
         // bitmapsList = in.createTypedArrayList(Bitmap.CREATOR);
         luotthich = in.readLong();
+        giatoida = in.readLong();
+        giatoithieu = in.readLong();
         chiNhanhQuanAnModelList = new ArrayList<ChiNhanhQuanAnModel>();
         in.readTypedList(chiNhanhQuanAnModelList, ChiNhanhQuanAnModel.CREATOR);
         binhLuanModelList = new ArrayList<BinhLuanModel>();
@@ -75,7 +97,6 @@ public class QuanAnModel implements Parcelable {
         this.chiNhanhQuanAnModelList = chiNhanhQuanAnModelList;
     }
 
-    long luotthich;
     DatabaseReference databaseReference;
 
     public List<String> getHinhanhquanan() {
@@ -263,6 +284,8 @@ public class QuanAnModel implements Parcelable {
         dest.writeStringList(tienich);
         dest.writeStringList(hinhanhquanan);
         dest.writeLong(luotthich);
+        dest.writeLong(giatoida);
+        dest.writeLong(giatoithieu);
         dest.writeTypedList(chiNhanhQuanAnModelList);
         dest.writeTypedList(binhLuanModelList);
     }

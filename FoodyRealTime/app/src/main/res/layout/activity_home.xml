@@ -14,10 +14,10 @@
         android:background="@color/colorPrimaryDark">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="left"
-            app:srcCompat="@drawable/chuf" />
+            app:srcCompat="@drawable/logo" />
 
         <RadioGroup
             android:id="@+id/radioGroup_anGi_oDau"
@@ -51,6 +51,7 @@
         </RadioGroup>
 
         <ImageView
+            android:id="@+id/themQuanAn"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="right"
