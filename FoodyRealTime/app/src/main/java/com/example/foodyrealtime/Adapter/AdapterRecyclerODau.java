@@ -184,7 +184,6 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
         StorageReference storageReferenceHinhUser = FirebaseStorage.getInstance().getReference()
                 .child("thanhvien")
                 .child(linkHinh);
-
         final long ONE_MEGABYTE = 1024 * 1024;
         storageReferenceHinhUser.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
