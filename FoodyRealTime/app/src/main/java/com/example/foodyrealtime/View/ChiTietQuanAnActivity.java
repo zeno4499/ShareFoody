@@ -150,6 +150,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         txtThoiGianHoatDong.setText(quanAnModel.getGiomocua() + "-" + quanAnModel.getGiodongcua());
         txtTongSoHinhAnh.setText(quanAnModel.getHinhanhquanan().size() + "");
         txtTongSoBinhLuan.setText(quanAnModel.getBinhLuanModelList().size() + "");
+
         StorageReference storageHinhQuanAn = FirebaseStorage.getInstance().getReference().child("hinhanh").child(quanAnModel.getHinhanhquanan().get(0));
         //down hình ảnh
         final long ONE_MEGABYTE = 1024 * 1024;
@@ -167,7 +168,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         recyclerViewBinhLuan.setAdapter(adapterBinhLuan);
         adapterBinhLuan.notifyDataSetChanged();
     }
-
+    
     @Override
     public void onClick(View v) {
         int id = v.getId();
