@@ -171,7 +171,7 @@ public class BinhLuanModel implements Parcelable {
         if (linkHinh.size() > 0)
             for (String valueHinh : linkHinh) {
                 Uri uri = Uri.fromFile(new File(valueHinh));
-                FirebaseDatabase.getInstance().getReference().child("hinhanhbinhluans").child(mabinhluan).push().setValue(uri.getPathSegments());
+                FirebaseDatabase.getInstance().getReference().child("hinhanhbinhluans").child(mabinhluan).setValue(uri.getPathSegments());
             }
     }
 }
