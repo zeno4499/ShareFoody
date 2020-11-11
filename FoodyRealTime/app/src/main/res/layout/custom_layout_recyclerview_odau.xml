@@ -79,8 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dp"
-            android:visibility="gone">
+            android:padding="5dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circleImageUser"
@@ -126,8 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dp"
-            android:visibility="gone">
+            android:padding="5dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circleImageUser2"
