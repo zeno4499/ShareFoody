@@ -69,4 +69,5 @@ public class AdapterChonHinhBinhLuan extends RecyclerView.Adapter<AdapterChonHin
             checkBox = itemView.findViewById(R.id.checkBoxChonHinhBinhLuan);
         }
     }
+
 }

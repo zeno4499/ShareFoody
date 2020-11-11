@@ -114,8 +114,6 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
 
         //lấy danh sách bình luận  của quán án
         if (quanAnModel.getBinhLuanModelList().size() > 0) {
-            holder.containerBinhLuan.setVisibility(View.VISIBLE);
-            holder.containerBinhLuan2.setVisibility(View.VISIBLE);
             BinhLuanModel binhLuanModel = quanAnModel.getBinhLuanModelList().get(0);
             holder.txtTieuDeBinhLuan.setText(binhLuanModel.getTieude());
             holder.txtNoiDungBinhLuan.setText(binhLuanModel.getNoidung());

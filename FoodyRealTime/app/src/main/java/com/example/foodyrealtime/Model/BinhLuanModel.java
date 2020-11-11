@@ -1,8 +1,20 @@
 package com.example.foodyrealtime.Model;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
 import java.util.List;
 
 public class BinhLuanModel implements Parcelable {
@@ -129,5 +141,37 @@ public class BinhLuanModel implements Parcelable {
         dest.writeStringList(hinhanhBinhLuanList);
         dest.writeString(mabinhluan);
         dest.writeParcelable(thanhVienModel, flags);
+    }
+
+    public void themBinhLuan(String maquanan, BinhLuanModel binhLuanModel, final List<String> linkHinh) {
+        DatabaseReference nodeBinhLuan = FirebaseDatabase.getInstance().getReference().child("binhluans");
+        String mabinhluan = nodeBinhLuan.child(maquanan).push().getKey();
+
+        nodeBinhLuan.child(maquanan).child(mabinhluan).setValue(binhLuanModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    if (linkHinh.size() > 0) {
+                        for (String valueHinh : linkHinh) {
+                            Uri uri = Uri.fromFile(new File(valueHinh));
+                            StorageReference storageReference = FirebaseStorage.getInstance()
+                                    .getReference().child("hinhanh/" + uri.getLastPathSegment());
+                            storageReference.putFile(uri).addOnCanceledListener(new OnCanceledListener() {
+                                @Override
+                                public void onCanceled() {
+
+                                }
+                            });
+
+                        }
+                    }
+                }
+            }
+        });
+        if (linkHinh.size() > 0)
+            for (String valueHinh : linkHinh) {
+                Uri uri = Uri.fromFile(new File(valueHinh));
+                FirebaseDatabase.getInstance().getReference().child("hinhanhbinhluans").child(mabinhluan).push().setValue(uri.getPathSegments());
+            }
     }
 }
