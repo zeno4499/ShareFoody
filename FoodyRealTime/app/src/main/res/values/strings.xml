@@ -2,7 +2,7 @@
     <string name="app_name">FoodyRealTime</string>
     <string name="name_version">Phiên bản</string>
     <string name="loading">Đang tải...</string>
-    <string name="name_company">sonphamhong</string>
+    <string name="name_company">Sơn Vs Lan</string>
     <string name="btnLogin">Đăng Nhập</string>
     <string name="btnRegister">Đăng Ký</string>
     <string name="hintEmail">Email</string>
@@ -19,7 +19,7 @@
     <string name="thongbaoloimatkhauDK">Bạn chưa nhập PassWord</string>
     <string name="thongbaonhaplaiMK">Vui lòng nhập giống mật khẩu ở trên !</string>
     <string name="thongbaoDKthanhcong">Bạn đã đăng kí thành công !</string>
-    <string name="dangxuli">Đang xử lí</string>
+    <string name="dangxuli">Đang xử lí...</string>
     <string name="dangnhapthatbai">Tài khoản không hợp lệ</string>
     <string name="khoiphucmk">Khôi phục mật khẩu</string>
     <string name="chuoikhoiphucmk">Bạn vui lòng nhập địa chỉ Email vào khung bên dưới để khôi phục mật khẩu !!</string>
