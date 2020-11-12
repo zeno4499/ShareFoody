@@ -82,7 +82,10 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         videoView = findViewById(R.id.videoTrailer);
 //        imgPlayTrailer = findViewById(R.id.imgPLayTrailer);
         recyclerThucDon = findViewById(R.id.recyclerThucDon);
+        btnBinhLuan.setOnClickListener(this);
 
+        thucDonController = new ThucDonController();
+        HienThiChiTietQuanAn();
 
         //set title toolbar về rỗng
         toolbar.setTitle("");
@@ -107,6 +110,11 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    private void HienThiChiTietQuanAn() {
+
+        thucDonController.getDanhSachThucDonQuanAnTheoMa(this, quanAnModel.getMaquanan(), recyclerThucDon);
     }
 
     @Override
@@ -142,7 +150,6 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         txtThoiGianHoatDong.setText(quanAnModel.getGiomocua() + "-" + quanAnModel.getGiodongcua());
         txtTongSoHinhAnh.setText(quanAnModel.getHinhanhquanan().size() + "");
         txtTongSoBinhLuan.setText(quanAnModel.getBinhLuanModelList().size() + "");
-
         StorageReference storageHinhQuanAn = FirebaseStorage.getInstance().getReference().child("hinhanh").child(quanAnModel.getHinhanhquanan().get(0));
         //down hình ảnh
         final long ONE_MEGABYTE = 1024 * 1024;
