@@ -3,20 +3,17 @@ package com.example.foodyrealtime.View;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,8 +28,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -87,6 +82,15 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         videoView = findViewById(R.id.videoTrailer);
 //        imgPlayTrailer = findViewById(R.id.imgPLayTrailer);
         recyclerThucDon = findViewById(R.id.recyclerThucDon);
+
+
+        //set title toolbar về rỗng
+        toolbar.setTitle("");
+        //set tool bar thành action bar
+        setSupportActionBar(toolbar);
+        //mở mũi tên back trên tool bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         btnBinhLuan.setOnClickListener(this);
 
         thucDonController = new ThucDonController();
@@ -98,15 +102,63 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         thucDonController.getDanhSachThucDonQuanAnTheoMa(this, quanAnModel.getMaquanan(), recyclerThucDon);
     }
 
+    // sự kiện back
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     @Override
     protected void onStart() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         super.onStart();
 
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        String gioHientai = dateFormat.format(calendar.getTime());
+        String gioMocua = quanAnModel.getGiomocua();
+        String gioDongcua = quanAnModel.getGiodongcua();
+
+        try {
+            Date dateHientai = dateFormat.parse(gioHientai);
+            Date dateMocua = dateFormat.parse(gioMocua);
+            Date dateDongcua = dateFormat.parse(gioDongcua);
+            if (dateHientai.after(dateMocua) && dateHientai.before(dateDongcua)) {
+                //đang mở cửa
+                txtTrangThaiHoatDong.setText(getString(R.string.dangmocua));
+
+            } else {
+                txtTrangThaiHoatDong.setText(getString(R.string.dadongcua));
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        txtTieuDeToolbar.setText(quanAnModel.getTenquanan());
         txtTenQuanAn.setText(quanAnModel.getTenquanan());
         txtDiaChi.setText(quanAnModel.getChiNhanhQuanAnModelList().get(0).getDiachi());
         txtThoiGianHoatDong.setText(quanAnModel.getGiomocua() + "-" + quanAnModel.getGiodongcua());
         txtTongSoHinhAnh.setText(quanAnModel.getHinhanhquanan().size() + "");
         txtTongSoBinhLuan.setText(quanAnModel.getBinhLuanModelList().size() + "");
+
+        StorageReference storageHinhQuanAn = FirebaseStorage.getInstance().getReference().child("hinhanh").child(quanAnModel.getHinhanhquanan().get(0));
+        //down hình ảnh
+        final long ONE_MEGABYTE = 1024 * 1024;
+        String storageReferenceHinhAn;
+        storageHinhQuanAn.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imHinhAnhQuanAn.setImageBitmap(bitmap);
+            }
+        });
+        //load danh sách bình luận quán ăn
+        recyclerViewBinhLuan.setLayoutManager(layoutManager);
+        adapterBinhLuan = new ApdaterBinhLuan(this, R.layout.custom_layout_binhluan, quanAnModel.getBinhLuanModelList());
+        recyclerViewBinhLuan.setAdapter(adapterBinhLuan);
+        adapterBinhLuan.notifyDataSetChanged();
     }
 
     @Override
