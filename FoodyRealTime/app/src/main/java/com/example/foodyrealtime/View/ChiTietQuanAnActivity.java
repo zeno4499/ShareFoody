@@ -112,11 +112,6 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         return true;
     }
 
-    private void HienThiChiTietQuanAn() {
-
-        thucDonController.getDanhSachThucDonQuanAnTheoMa(this, quanAnModel.getMaquanan(), recyclerThucDon);
-    }
-
     @Override
     protected void onStart() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -168,7 +163,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         recyclerViewBinhLuan.setAdapter(adapterBinhLuan);
         adapterBinhLuan.notifyDataSetChanged();
     }
-    
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
