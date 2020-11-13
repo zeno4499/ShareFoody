@@ -96,8 +96,8 @@ public class ApdaterBinhLuan extends RecyclerView.Adapter<ApdaterBinhLuan.ViewHo
     public int getItemCount() {
         int soBinhluan = binhLuanModelList.size();
         // có nhiều hơn 6 bình luận chỉ show 5 cái
-        if (soBinhluan > 6) {
-            return 6;
+        if (soBinhluan > 10) {
+            return 10;
         } else {
             return binhLuanModelList.size();
         }

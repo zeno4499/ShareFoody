@@ -115,19 +115,20 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
         //lấy danh sách bình luận  của quán án
         if (quanAnModel.getBinhLuanModelList().size() > 0) {
             holder.containerBinhLuan.setVisibility(View.VISIBLE);
-
             BinhLuanModel binhLuanModel = quanAnModel.getBinhLuanModelList().get(0);
             holder.txtTieuDeBinhLuan.setText(binhLuanModel.getTieude());
             holder.txtNoiDungBinhLuan.setText(binhLuanModel.getNoidung());
             setHinhAnhBinhLuan(holder.circleImageUser, binhLuanModel.getThanhVienModel().getHinhanh());
             holder.txtChamDiemBinhLuan.setText(binhLuanModel.getChamdiem() + "");
-            if (quanAnModel.getBinhLuanModelList().size() > 2) {
+            if (quanAnModel.getBinhLuanModelList().size() > 1) {
                 holder.containerBinhLuan2.setVisibility(View.VISIBLE);
                 BinhLuanModel binhLuanModel2 = quanAnModel.getBinhLuanModelList().get(1);
                 holder.txtTieuDeBinhLuan2.setText(binhLuanModel2.getTieude());
                 holder.txtNoiDungBinhLuan2.setText(binhLuanModel2.getNoidung());
                 setHinhAnhBinhLuan(holder.circleImageUser2, binhLuanModel2.getThanhVienModel().getHinhanh());
                 holder.txtChamDiemBinhLuan2.setText(binhLuanModel2.getChamdiem() + "");
+            } else {
+                holder.containerBinhLuan2.setVisibility(View.GONE);
             }
             holder.txtTongBinhLuan.setText(quanAnModel.getBinhLuanModelList().size() + "");
 
@@ -174,9 +175,9 @@ public class AdapterRecyclerODau extends RecyclerView.Adapter<AdapterRecyclerODa
         holder.cardViewODau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ChiTietQuanAnActivity.class);
-                intent.putExtra("quanan", quanAnModel);
-                context.startActivity(intent);
+                Intent iChiTietQuanAn = new Intent(context, ChiTietQuanAnActivity.class);
+                iChiTietQuanAn.putExtra("quanan", quanAnModel);
+                context.startActivity(iChiTietQuanAn);
             }
         });
     }

@@ -3,11 +3,13 @@ package com.example.foodyrealtime.View;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -80,7 +82,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         khungTinhNang = findViewById(R.id.khungTinhNang);
         btnBinhLuan = findViewById(R.id.btnBinhLuan);
         videoView = findViewById(R.id.videoTrailer);
-//        imgPlayTrailer = findViewById(R.id.imgPLayTrailer);
+        imgPlayTrailer = findViewById(R.id.imgPLayTrailer);
         recyclerThucDon = findViewById(R.id.recyclerThucDon);
         btnBinhLuan.setOnClickListener(this);
 
@@ -94,10 +96,12 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         //mở mũi tên back trên tool bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         btnBinhLuan.setOnClickListener(this);
 
         thucDonController = new ThucDonController();
         HienThiChiTietQuanAn();
+
     }
 
     private void HienThiChiTietQuanAn() {
@@ -149,7 +153,6 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         StorageReference storageHinhQuanAn = FirebaseStorage.getInstance().getReference().child("hinhanh").child(quanAnModel.getHinhanhquanan().get(0));
         //down hình ảnh
         final long ONE_MEGABYTE = 1024 * 1024;
-        String storageReferenceHinhAn;
         storageHinhQuanAn.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
@@ -157,6 +160,35 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
                 imHinhAnhQuanAn.setImageBitmap(bitmap);
             }
         });
+        //down video
+        if (quanAnModel.getVideogioithieu() != null) {
+            videoView.setVisibility(View.VISIBLE);
+            imgPlayTrailer.setVisibility(View.VISIBLE);
+            imHinhAnhQuanAn.setVisibility(View.GONE);
+            StorageReference storageVideo = FirebaseStorage.getInstance().getReference().child("videos").child(quanAnModel.getVideogioithieu());
+            storageVideo.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    videoView.setVideoURI(uri);
+                    videoView.seekTo(1);
+                }
+            });
+
+            imgPlayTrailer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    videoView.start();
+                    MediaController mediaController = new MediaController(ChiTietQuanAnActivity.this);
+                    videoView.setMediaController(mediaController);
+                    imgPlayTrailer.setVisibility(View.GONE);
+                }
+            });
+
+        } else {
+            videoView.setVisibility(View.GONE);
+            imgPlayTrailer.setVisibility(View.GONE);
+            imHinhAnhQuanAn.setVisibility(View.VISIBLE);
+        }
         //load danh sách bình luận quán ăn
         recyclerViewBinhLuan.setLayoutManager(layoutManager);
         adapterBinhLuan = new ApdaterBinhLuan(this, R.layout.custom_layout_binhluan, quanAnModel.getBinhLuanModelList());

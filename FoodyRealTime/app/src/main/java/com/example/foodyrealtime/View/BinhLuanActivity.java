@@ -101,7 +101,7 @@ public class BinhLuanActivity extends AppCompatActivity implements View.OnClickL
                 String tieuDe = edTieuDeBinhLuan.getText().toString();
                 String noiDung = edNoiDungBinhLuan.getText().toString();
                 //TODO: xoa defValue: để defaul này vì test chưa đăng nhập. Sẽ xóa sau
-                String mauser = sharedPreferences.getString("mauser", "Dg4e9Phl0fSlChlvkOaEiijwc612");
+                String mauser = sharedPreferences.getString("mauser", "");
 
                 BinhLuanModel binhLuanModel = new BinhLuanModel();
                 binhLuanModel.setTieude(tieuDe);
