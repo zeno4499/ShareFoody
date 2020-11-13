@@ -26,8 +26,6 @@ public class AdapterRecyclerHinhBinhLuan extends RecyclerView.Adapter<AdapterRec
         this.context = context;
         this.resounrce = resounrce;
         this.listHinh = listHinh;
-
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,8 +64,10 @@ public class AdapterRecyclerHinhBinhLuan extends RecyclerView.Adapter<AdapterRec
 
     @Override
     public int getItemCount() {
-        return 4;
+        if (listHinh.size() < 4) {
+            return listHinh.size();
+        } else {
+            return 4;
+        }
     }
-
-
 }
