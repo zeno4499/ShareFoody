@@ -124,8 +124,8 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         String gioHientai = dateFormat.format(calendar.getTime());
-        String gioMocua = quanAnModel.getGiomocua();
-        String gioDongcua = quanAnModel.getGiodongcua();
+        String gioMocua = quanAnModel.getGiomocua() == null ? "7:00" : quanAnModel.getGiomocua();
+        String gioDongcua = quanAnModel.getGiodongcua() == null ? "20:00" : quanAnModel.getGiodongcua();
 
         try {
             Date dateHientai = dateFormat.parse(gioHientai);
@@ -134,7 +134,6 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
             if (dateHientai.after(dateMocua) && dateHientai.before(dateDongcua)) {
                 //đang mở cửa
                 txtTrangThaiHoatDong.setText(getString(R.string.dangmocua));
-
             } else {
                 txtTrangThaiHoatDong.setText(getString(R.string.dadongcua));
             }
@@ -161,7 +160,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
             }
         });
         //down video
-        if (quanAnModel.getVideogioithieu() != null) {
+        if (quanAnModel.getVideogioithieu() != null && !quanAnModel.getVideogioithieu().isEmpty()) {
             videoView.setVisibility(View.VISIBLE);
             imgPlayTrailer.setVisibility(View.VISIBLE);
             imHinhAnhQuanAn.setVisibility(View.GONE);
