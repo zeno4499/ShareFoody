@@ -17,6 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC748mdiMgZ5ozMDO5WMXg6Ksu-QU9lKBE" />
+
+
+
         <activity android:name=".View.ChonHinhBinhLuanActivity"></activity>
 
         <meta-data

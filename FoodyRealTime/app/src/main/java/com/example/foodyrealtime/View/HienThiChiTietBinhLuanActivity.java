@@ -31,8 +31,8 @@ public class HienThiChiTietBinhLuanActivity extends AppCompatActivity {
     BinhLuanModel binhLuanModel;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_layout_binhluan);
         circleImageView = findViewById(R.id.circleImageUser);
         txtTieuDeBinhLuan = findViewById(R.id.txtTieuDeBinhLuan);
@@ -82,4 +82,5 @@ public class HienThiChiTietBinhLuanActivity extends AppCompatActivity {
             }
         });
     }
-}
+    }
+

@@ -13,6 +13,7 @@ import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -23,30 +24,42 @@ import com.example.foodyrealtime.Adapter.ApdaterBinhLuan;
 import com.example.foodyrealtime.Controller.ChiTietQuanController;
 import com.example.foodyrealtime.Controller.ThucDonController;
 import com.example.foodyrealtime.Model.QuanAnModel;
+import com.example.foodyrealtime.Model.TienIchModel;
 import com.example.foodyrealtime.R;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnClickListener {
+public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
     TextView txtTenQuanAn, txtDiaChi, txtThoiGianHoatDong, txtTrangThaiHoatDong, txtTongSoHinhAnh, txtTongSoBinhLuan, txtTongSoCheckIn, txtTongSoLuuLai, txtTieuDeToolbar, txtGioiHanGia, txtTenWifi, txtMatKhauWifi, txtNgayDangWifi;
     ImageView imHinhAnhQuanAn, imgPlayTrailer;
     Button btnBinhLuan;
-    LinearLayout khungWifi;
+    LinearLayout khungTienIch, khungWifi;
     QuanAnModel quanAnModel;
     Toolbar toolbar;
     RecyclerView recyclerViewBinhLuan;
     ApdaterBinhLuan adapterBinhLuan;
     GoogleMap googleMap;
     MapFragment mapFragment;
-    LinearLayout khungTienIch;
     View khungTinhNang;
     VideoView videoView;
     RecyclerView recyclerThucDon;
@@ -73,7 +86,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         txtGioiHanGia = findViewById(R.id.txtGioiHanGia);
         toolbar = findViewById(R.id.toolbar);
         recyclerViewBinhLuan = findViewById(R.id.recyclerBinhLuanChiTietQuanAn);
-        //mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         khungTienIch = findViewById(R.id.khungTienTich);
         txtTenWifi = findViewById(R.id.txtTenWifi);
         txtMatKhauWifi = findViewById(R.id.txtMatKhauWifi);
@@ -84,7 +97,8 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         videoView = findViewById(R.id.videoTrailer);
         imgPlayTrailer = findViewById(R.id.imgPLayTrailer);
         recyclerThucDon = findViewById(R.id.recyclerThucDon);
-        btnBinhLuan.setOnClickListener(this);
+
+        mapFragment.getMapAsync(this);
 
         thucDonController = new ThucDonController();
         HienThiChiTietQuanAn();
@@ -150,6 +164,18 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
         txtTongSoHinhAnh.setText(quanAnModel.getHinhanhquanan().size() + "");
         txtTongSoBinhLuan.setText(quanAnModel.getBinhLuanModelList().size() + "");
 
+        //load tiện ích quán ăn
+        DownloadHinhTienIch();
+        //load giá tối đa và giá tối thiểu
+        if (quanAnModel.getGiatoida() != 0 && quanAnModel.getGiatoithieu() != 0) {
+            NumberFormat numberFormat = new DecimalFormat("###,###");
+            String giatoithieu = numberFormat.format(quanAnModel.getGiatoithieu()) + " đ";
+            String giatoida = numberFormat.format(quanAnModel.getGiatoida()) + " đ";
+            txtGioiHanGia.setText(giatoithieu + " - " + giatoida);
+        } else {
+            txtGioiHanGia.setVisibility(View.INVISIBLE);
+        }
+
         StorageReference storageHinhQuanAn = FirebaseStorage.getInstance().getReference().child("hinhanh").child(quanAnModel.getHinhanhquanan().get(0));
         //down hình ảnh
         final long ONE_MEGABYTE = 1024 * 1024;
@@ -197,6 +223,20 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        double latitude = quanAnModel.getChiNhanhQuanAnModelList().get(0).getLatitude();
+        double longitude = quanAnModel.getChiNhanhQuanAnModelList().get(0).getLongtitude();
+        LatLng latLng = new LatLng(latitude, longitude);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title(quanAnModel.getTenquanan());
+        googleMap.addMarker(markerOptions);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14);
+        googleMap.moveCamera(cameraUpdate);
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
@@ -209,5 +249,41 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements View.OnC
                 break;
             }
         }
+    }
+
+    private void DownloadHinhTienIch() {
+        for (String matienich : quanAnModel.getTienich()) {
+            DatabaseReference nodeTienIch = FirebaseDatabase.getInstance().getReference().child("quanlitienichs").child(matienich);
+            nodeTienIch.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    TienIchModel tienIchModel = snapshot.getValue(TienIchModel.class);
+                    StorageReference storageHinhQuanAn = FirebaseStorage.getInstance().getReference().child("hinhtienich").child(tienIchModel.getHinhtienich());
+                    //down hình ảnh
+                    final long ONE_MEGABYTE = 1024 * 1024;
+                    storageHinhQuanAn.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            ImageView imageTienIch = new ImageView(ChiTietQuanAnActivity.this);
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(50, 50);
+                            layoutParams.setMargins(10, 10, 10, 10);
+                            imageTienIch.setLayoutParams(layoutParams);
+                            imageTienIch.setScaleType(ImageView.ScaleType.FIT_XY);
+                            imageTienIch.setPadding(5, 5, 5, 5);
+                            imageTienIch.setImageBitmap(bitmap);
+                            khungTienIch.addView(imageTienIch);
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
     }
 }
