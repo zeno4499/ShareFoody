@@ -17,6 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC748mdiMgZ5ozMDO5WMXg6Ksu-QU9lKBE" />
+
+
+
         <activity android:name=".View.ChonHinhBinhLuanActivity"></activity>
 
         <meta-data
@@ -34,13 +40,16 @@
 
         </activity>
         <activity android:name=".View.SlashScreenActivity">
+
+        </activity>
+        <activity android:name=".View.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.HomeActivity">
+        <activity android:name=".View.HienThiChiTietBinhLuanActivity">
 
         </activity>
     </application>

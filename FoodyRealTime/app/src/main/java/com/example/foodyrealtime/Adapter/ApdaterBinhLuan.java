@@ -79,7 +79,7 @@ public class ApdaterBinhLuan extends RecyclerView.Adapter<ApdaterBinhLuan.ViewHo
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     bitmapList.add(bitmap);
                     if (bitmapList.size() == binhLuanModel.getHinhanhBinhLuanList().size()) {
-                        AdapterRecyclerHinhBinhLuan adapterRecyclerHinhBinhLuan = new AdapterRecyclerHinhBinhLuan(context, R.layout.custom_layout_hinhbinhluan, bitmapList);
+                        AdapterRecyclerHinhBinhLuan adapterRecyclerHinhBinhLuan = new AdapterRecyclerHinhBinhLuan(context, R.layout.custom_layout_hinhbinhluan, bitmapList, binhLuanModel, false);
                         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(context, 2);
                         holder.recyclerViewHinhBinhLuan.setLayoutManager(layoutManager);
                         holder.recyclerViewHinhBinhLuan.setAdapter(adapterRecyclerHinhBinhLuan);
@@ -95,7 +95,7 @@ public class ApdaterBinhLuan extends RecyclerView.Adapter<ApdaterBinhLuan.ViewHo
     @Override
     public int getItemCount() {
         int soBinhluan = binhLuanModelList.size();
-        // có nhiều hơn 6 bình luận chỉ show 5 cái
+        // có nhiều hơn 10 bình luận chỉ show 10 cái
         if (soBinhluan > 10) {
             return 10;
         } else {

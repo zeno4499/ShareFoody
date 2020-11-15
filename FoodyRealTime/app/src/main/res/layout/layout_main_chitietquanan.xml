@@ -135,12 +135,7 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/txtDiaChiQuanAn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:text="23 duong Tran Hung Dao" />
+
 
 
                     <View
@@ -280,6 +275,7 @@
                     android:background="@color/colorBackgroundHomeApp" />
 
                 <include layout="@layout/layout_wifi_chitietquanan" />
+                <include layout="@layout/layout_tinhnang_chitietquanan"/>
 
                 <include layout="@layout/layout_thucdon_chitiet" />
 
