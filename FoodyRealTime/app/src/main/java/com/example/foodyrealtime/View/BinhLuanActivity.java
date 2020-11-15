@@ -3,9 +3,12 @@
 package com.example.foodyrealtime.View;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -41,7 +44,7 @@ public class BinhLuanActivity extends AppCompatActivity implements View.OnClickL
     String maquanan;
     SharedPreferences sharedPreferences;
     BinhLuanController binhLuanController;
-    List<String> listHinhDuocChon;
+    List<Uri> listHinhDuocChon;
 
 
     @SuppressLint("RestrictedApi")
@@ -93,8 +96,13 @@ public class BinhLuanActivity extends AppCompatActivity implements View.OnClickL
         int id = v.getId();
         switch (id) {
             case R.id.btnChonHinh: {
-                Intent iChonHinhBinhLuan = new Intent(this, ChonHinhBinhLuanActivity.class);
-                startActivityForResult(iChonHinhBinhLuan, REQUEST_CHONHINHBINHLUAN);
+//                Intent iChonHinhBinhLuan = new Intent(this, ChonHinhBinhLuanActivity.class);
+//                startActivityForResult(iChonHinhBinhLuan, REQUEST_CHONHINHBINHLUAN);
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Chọn video..."), REQUEST_CHONHINHBINHLUAN);
                 break;
             }
             case R.id.txtDangBinhLuan: {
@@ -112,6 +120,7 @@ public class BinhLuanActivity extends AppCompatActivity implements View.OnClickL
 
                 //TODO: bo comment de add vao
                 binhLuanController.ThemBinhLuan(maquanan, binhLuanModel, listHinhDuocChon);
+
                 finish();
                 break;
             }
@@ -122,7 +131,18 @@ public class BinhLuanActivity extends AppCompatActivity implements View.OnClickL
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CHONHINHBINHLUAN) {
-            listHinhDuocChon = data.getStringArrayListExtra("listHinhDuocChon");
+            if (data.getData() != null) {
+                Uri uri = data.getData();
+                listHinhDuocChon.add(uri);
+            } else {
+                ClipData clipData = data.getClipData();
+                for (int i = 0; i < clipData.getItemCount(); i++) {
+                    ClipData.Item item = clipData.getItemAt(i);
+                    Uri uri = item.getUri();
+                    listHinhDuocChon.add(uri);
+                }
+            }
+
             adapterHienThiHinhBinhLuanDuocChon = new AdapterHienThiHinhBinhLuanDuocChon(this,
                     R.layout.custom_layout_hienthibinhluanduocchon, listHinhDuocChon);
             recyclerViewChonHinhBinhLuan.setAdapter(adapterHienThiHinhBinhLuanDuocChon);

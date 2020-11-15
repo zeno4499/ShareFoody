@@ -95,26 +95,26 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_themquanan);
 
-        btnGioDongCua = (Button) findViewById(R.id.btnGioDongCua);
-        btnGioMoCua = (Button) findViewById(R.id.btnGioMoCua);
-        spinnerKhuVuc = (Spinner) findViewById(R.id.spinnerKhuVuc);
-        khungTienIch = (LinearLayout) findViewById(R.id.khungTienTich);
-        khungChiNhanh = (LinearLayout) findViewById(R.id.khungChiNhanh);
-        khungChuaChiNhanh = (LinearLayout) findViewById(R.id.khungChuaChiNhanh);
-        khungChuaThucDon = (LinearLayout) findViewById(R.id.khungChuaThucDon);
-        imgHinhQuan1 = (ImageView) findViewById(R.id.imgHinhQuan1);
-        imgHinhQuan2 = (ImageView) findViewById(R.id.imgHinhQuan2);
-        imgHinhQuan3 = (ImageView) findViewById(R.id.imgHinhQuan3);
-        imgHinhQuan4 = (ImageView) findViewById(R.id.imgHinhQuan4);
-        imgHinhQuan5 = (ImageView) findViewById(R.id.imgHinhQuan5);
-        imgHinhQuan6 = (ImageView) findViewById(R.id.imgHinhQuan6);
-        imgVideo = (ImageView) findViewById(R.id.imgVideo);
-        videoView = (VideoView) findViewById(R.id.videoView);
-        btnThemQuanAn = (Button) findViewById(R.id.btnThemQuanAn);
-        rdgTrangThai = (RadioGroup) findViewById(R.id.rdgTrangThai);
-        edGiaThoiThieu = (EditText) findViewById(R.id.edGiaToiThieu);
-        edGiaToiDa = (EditText) findViewById(R.id.edGiaToiDa);
-        edTenQuanAn = (EditText) findViewById(R.id.edTenQuan);
+        btnGioDongCua = findViewById(R.id.btnGioDongCua);
+        btnGioMoCua = findViewById(R.id.btnGioMoCua);
+        spinnerKhuVuc = findViewById(R.id.spinnerKhuVuc);
+        khungTienIch = findViewById(R.id.khungTienTich);
+        khungChiNhanh = findViewById(R.id.khungChiNhanh);
+        khungChuaChiNhanh = findViewById(R.id.khungChuaChiNhanh);
+        khungChuaThucDon = findViewById(R.id.khungChuaThucDon);
+        imgHinhQuan1 = findViewById(R.id.imgHinhQuan1);
+        imgHinhQuan2 = findViewById(R.id.imgHinhQuan2);
+        imgHinhQuan3 = findViewById(R.id.imgHinhQuan3);
+        imgHinhQuan4 = findViewById(R.id.imgHinhQuan4);
+        imgHinhQuan5 = findViewById(R.id.imgHinhQuan5);
+        imgHinhQuan6 = findViewById(R.id.imgHinhQuan6);
+        imgVideo = findViewById(R.id.imgVideo);
+        videoView = findViewById(R.id.videoView);
+        btnThemQuanAn = findViewById(R.id.btnThemQuanAn);
+        rdgTrangThai = findViewById(R.id.rdgTrangThai);
+        edGiaThoiThieu = findViewById(R.id.edGiaToiThieu);
+        edGiaToiDa = findViewById(R.id.edGiaToiDa);
+        edTenQuanAn = findViewById(R.id.edTenQuan);
 
         thucDonModelList = new ArrayList<>();
         khuVucList = new ArrayList<>();
@@ -215,7 +215,6 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
                     videoSelected = uri;
                     videoView.setVideoURI(uri);
                     videoView.start();
-
                 }
                 break;
         }
@@ -225,10 +224,10 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
     private void CloneThucDon() {
         View view = LayoutInflater.from(ThemQuanAnActivity.this).inflate(R.layout.layout_clone_thucdon, null);
         final Spinner spinnerThucDon = (Spinner) view.findViewById(R.id.spinnerThucDon);
-        Button btnThemThucDOn = (Button) view.findViewById(R.id.btnThemThucDon);
-        final EditText edTenMon = (EditText) view.findViewById(R.id.edTenMon);
-        final EditText edGiaTien = (EditText) view.findViewById(R.id.edGiaTien);
-        ImageView imageChupHinh = (ImageView) view.findViewById(R.id.imgChupHinh);
+        Button btnThemThucDOn = view.findViewById(R.id.btnThemThucDon);
+        final EditText edTenMon = view.findViewById(R.id.edTenMon);
+        final EditText edGiaTien = view.findViewById(R.id.edGiaTien);
+        ImageView imageChupHinh = view.findViewById(R.id.imgChupHinh);
         imgTam = imageChupHinh;
 
         ArrayAdapter<String> adapterThucDon = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, thucDonList);
@@ -276,13 +275,13 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
 
     private void CloneChiNhanh() {
         final View view = LayoutInflater.from(ThemQuanAnActivity.this).inflate(R.layout.layout_clone_chinhanh, null);
-        ImageButton btnThemChiNhanh = (ImageButton) view.findViewById(R.id.btnThemChiNhanh);
-        final ImageButton btnXoaChiNhanh = (ImageButton) view.findViewById(R.id.btnXoaChiNhanh);
+        ImageButton btnThemChiNhanh = view.findViewById(R.id.btnThemChiNhanh);
+        final ImageButton btnXoaChiNhanh = view.findViewById(R.id.btnXoaChiNhanh);
 
         btnThemChiNhanh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText edTenChiNhanh = (EditText) view.findViewById(R.id.edTenChiNhanh);
+                EditText edTenChiNhanh = view.findViewById(R.id.edTenChiNhanh);
                 String tenChiNhanh = edTenChiNhanh.getText().toString();
 
                 v.setVisibility(View.GONE);
@@ -481,7 +480,7 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
         nodeRoot.child("khuvucs").child(khuvuc).push().setValue(maQuanAn);
 
         for (String chinhanh : chiNhanhList) {
-            String urlGeoCoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + chinhanh.replace(" ", "%20") + "&key=AIzaSyBVd2D3evAh1Ip_f5nuN1P6ad-14G3Ns0g";
+            String urlGeoCoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + chinhanh.replace(" ", "%20") + "&key=AIzaSyC748mdiMgZ5ozMDO5WMXg6Ksu-QU9lKBE";
             DownloadToaDo downloadToaDo = new DownloadToaDo();
             downloadToaDo.execute(urlGeoCoding);
 

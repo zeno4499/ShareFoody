@@ -8,6 +8,6 @@
     <color name="colorBlack">#000</color>
     <color name="colorBackgroundHomeApp">#CCC</color>
     <color name="tranparentWhite">#CCFFFFFF</color>
-    <color name="colorWhite">#FFF</color>
+    <color name="colorWhite">#FF0404</color>
 
 </resources>

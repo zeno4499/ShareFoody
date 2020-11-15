@@ -17,9 +17,9 @@ public class AdapterHienThiHinhBinhLuanDuocChon extends RecyclerView.Adapter<Ada
 
     Context context;
     int resource;
-    List<String> list;
+    List<Uri> list;
 
-    public AdapterHienThiHinhBinhLuanDuocChon(Context context, int resource, List<String> list) {
+    public AdapterHienThiHinhBinhLuanDuocChon(Context context, int resource, List<Uri> list) {
         this.context = context;
         this.resource = resource;
         this.list = list;
@@ -35,7 +35,7 @@ public class AdapterHienThiHinhBinhLuanDuocChon extends RecyclerView.Adapter<Ada
     @Override
     public void onBindViewHolder(AdapterHienThiHinhBinhLuanDuocChon.ViewHolderHinhBinhLuan holder, int position) {
 
-        Uri uri = Uri.parse(list.get(position));
+        Uri uri = list.get(position);
         holder.imageView.setImageURI(uri);
         holder.imgXoa.setTag(position);
         holder.imgXoa.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +59,7 @@ public class AdapterHienThiHinhBinhLuanDuocChon extends RecyclerView.Adapter<Ada
         public ViewHolderHinhBinhLuan(View itemView) {
             super(itemView);
 
-            imageView = (ImageView) itemView.findViewById(R.id.imgChonHinhBinhLuan);
+            imageView = itemView.findViewById(R.id.imgChonHinhBinhLuan);
             imgXoa = itemView.findViewById(R.id.imgeDelete);
         }
     }
