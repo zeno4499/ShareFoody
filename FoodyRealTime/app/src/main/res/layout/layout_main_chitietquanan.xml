@@ -136,8 +136,6 @@
                         android:textStyle="bold" />
 
 
-
-
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -275,7 +273,14 @@
                     android:background="@color/colorBackgroundHomeApp" />
 
                 <include layout="@layout/layout_wifi_chitietquanan" />
-                <include layout="@layout/layout_tinhnang_chitietquanan"/>
+
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include layout="@layout/layout_tinhnang_chitietquanan" />
 
                 <include layout="@layout/layout_thucdon_chitiet" />
 

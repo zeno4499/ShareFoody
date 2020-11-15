@@ -29,8 +29,8 @@ import com.example.foodyrealtime.R;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,7 +59,6 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
     RecyclerView recyclerViewBinhLuan;
     ApdaterBinhLuan adapterBinhLuan;
     GoogleMap googleMap;
-    MapFragment mapFragment;
     View khungTinhNang;
     VideoView videoView;
     RecyclerView recyclerThucDon;
@@ -86,7 +85,9 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
         txtGioiHanGia = findViewById(R.id.txtGioiHanGia);
         toolbar = findViewById(R.id.toolbar);
         recyclerViewBinhLuan = findViewById(R.id.recyclerBinhLuanChiTietQuanAn);
-        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
         khungTienIch = findViewById(R.id.khungTienTich);
         txtTenWifi = findViewById(R.id.txtTenWifi);
         txtMatKhauWifi = findViewById(R.id.txtMatKhauWifi);
@@ -97,8 +98,6 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
         videoView = findViewById(R.id.videoTrailer);
         imgPlayTrailer = findViewById(R.id.imgPLayTrailer);
         recyclerThucDon = findViewById(R.id.recyclerThucDon);
-
-        mapFragment.getMapAsync(this);
 
         thucDonController = new ThucDonController();
         HienThiChiTietQuanAn();
@@ -252,12 +251,12 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
 
     private void DownloadHinhTienIch() {
         for (String matienich : quanAnModel.getTienich()) {
-            DatabaseReference nodeTienIch = FirebaseDatabase.getInstance().getReference().child("quanlitienichs").child(matienich);
+            DatabaseReference nodeTienIch = FirebaseDatabase.getInstance().getReference().child("quanlytienichs").child(matienich);
             nodeTienIch.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     TienIchModel tienIchModel = snapshot.getValue(TienIchModel.class);
-                    StorageReference storageHinhQuanAn = FirebaseStorage.getInstance().getReference().child("hinhtienich").child(tienIchModel.getHinhtienich());
+                    StorageReference storageHinhQuanAn = FirebaseStorage.getInstance().getReference().child("hinhtienich/").child(tienIchModel.getHinhtienich());
                     //down hình ảnh
                     final long ONE_MEGABYTE = 1024 * 1024;
                     storageHinhQuanAn.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -285,4 +284,13 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
         }
 
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        MapFragment f = (MapFragment) getFragmentManager()
+//                .findFragmentById(R.id.map);
+//        if (f != null)
+//            getFragmentManager().beginTransaction().remove(f).commit();
+//    }
 }
