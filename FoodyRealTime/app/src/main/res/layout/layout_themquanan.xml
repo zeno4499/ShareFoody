@@ -24,16 +24,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/giatoida"
-                android:inputType="number"
-                android:text="0" />
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/edGiaToiThieu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/giatoithieu"
-                android:inputType="number"
-                android:text="0" />
+                android:inputType="number" />
 
             <RadioGroup
                 android:id="@+id/rdgTrangThai"
