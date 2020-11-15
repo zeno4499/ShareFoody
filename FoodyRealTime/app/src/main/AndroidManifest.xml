@@ -34,13 +34,16 @@
 
         </activity>
         <activity android:name=".View.SlashScreenActivity">
+
+        </activity>
+        <activity android:name=".View.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.HomeActivity">
+        <activity android:name=".View.HienThiChiTietBinhLuanActivity">
 
         </activity>
     </application>
