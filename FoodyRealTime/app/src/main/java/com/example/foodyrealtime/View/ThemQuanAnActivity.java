@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
@@ -83,6 +84,7 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
     List<Bitmap> hinhDaChup;
     List<Uri> hinhQuanAn;
     Uri videoSelected;
+    Boolean isVideoSelected = false;
 
     ArrayAdapter<String> adapterKhuVuc;
     ImageView imgTam, imgHinhQuan1, imgHinhQuan2, imgHinhQuan3, imgHinhQuan4, imgHinhQuan5, imgHinhQuan6, imgVideo;
@@ -215,6 +217,7 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
                     videoSelected = uri;
                     videoView.setVideoURI(uri);
                     videoView.start();
+                    isVideoSelected = true;
                 }
                 break;
         }
@@ -223,7 +226,7 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
 
     private void CloneThucDon() {
         View view = LayoutInflater.from(ThemQuanAnActivity.this).inflate(R.layout.layout_clone_thucdon, null);
-        final Spinner spinnerThucDon = (Spinner) view.findViewById(R.id.spinnerThucDon);
+        final Spinner spinnerThucDon = view.findViewById(R.id.spinnerThucDon);
         Button btnThemThucDOn = view.findViewById(R.id.btnThemThucDon);
         final EditText edTenMon = view.findViewById(R.id.edTenMon);
         final EditText edGiaTien = view.findViewById(R.id.edGiaTien);
@@ -457,6 +460,8 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.btnThemQuanAn:
                 ThemQuanAn();
+                Toast.makeText(this, "Thêm quán ăn thành công", Toast.LENGTH_LONG).show();
+                finish();
                 break;
         }
     }
@@ -480,7 +485,7 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
         nodeRoot.child("khuvucs").child(khuvuc).push().setValue(maQuanAn);
 
         for (String chinhanh : chiNhanhList) {
-            String urlGeoCoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + chinhanh.replace(" ", "%20") + "&key=AIzaSyC748mdiMgZ5ozMDO5WMXg6Ksu-QU9lKBE";
+            String urlGeoCoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + chinhanh.replace(" ", "%20") + "&key=AIzaSyAh-RADDktj-QLvLoyE0y3ia__dDEwHvvg";
             DownloadToaDo downloadToaDo = new DownloadToaDo();
             downloadToaDo.execute(urlGeoCoding);
 
@@ -491,7 +496,10 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
         quanAnModel.setGiatoida(giaToiDa);
         quanAnModel.setGiatoithieu(giaToiThieu);
         quanAnModel.setGiaohang(giaoHang);
-        quanAnModel.setVideogioithieu(videoSelected.getLastPathSegment());
+        if (isVideoSelected == true) {
+            quanAnModel.setVideogioithieu(videoSelected.getLastPathSegment());
+            FirebaseStorage.getInstance().getReference().child("video/" + videoSelected.getLastPathSegment()).putFile(videoSelected);
+        }
         quanAnModel.setTienich(selectedTienIchList);
         quanAnModel.setLuotthich(0);
 
@@ -502,9 +510,8 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
-        FirebaseStorage.getInstance().getReference().child("video/" + videoSelected.getLastPathSegment()).putFile(videoSelected);
         for (Uri hinhquan : hinhQuanAn) {
-            FirebaseStorage.getInstance().getReference().child("hinhanh" + hinhquan.getLastPathSegment()).putFile(hinhquan);
+            FirebaseStorage.getInstance().getReference().child("hinhanh/" + hinhquan.getLastPathSegment()).putFile(hinhquan);
             nodeRoot.child("hinhanhquanans").child(maQuanAn).push().child(hinhquan.getLastPathSegment());
         }
 
@@ -586,12 +593,10 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
         switch (parent.getId()) {
             case R.id.spinnerKhuVuc:
                 khuvuc = khuVucList.get(position);
                 break;
-
         }
     }
 
