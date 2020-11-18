@@ -195,7 +195,7 @@ public class LoginActivity extends AppCompatActivity implements OnConnectionFail
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         } else {
-//            Toast.makeText(LoginActivity.this, "LOGIN FAIL!", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "LOGIN FAIL!", Toast.LENGTH_LONG).show();
         }
     }
     //end event check user Login is Successfull or logOut

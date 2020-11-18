@@ -29,6 +29,7 @@ import com.example.foodyrealtime.R;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -53,7 +54,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
     TextView txtTenQuanAn, txtDiaChi, txtThoiGianHoatDong, txtTrangThaiHoatDong, txtTongSoHinhAnh, txtTongSoBinhLuan, txtTongSoCheckIn, txtTongSoLuuLai, txtTieuDeToolbar, txtGioiHanGia, txtTenWifi, txtMatKhauWifi, txtNgayDangWifi;
     ImageView imHinhAnhQuanAn, imgPlayTrailer;
     Button btnBinhLuan;
-    LinearLayout khungTienIch, khungWifi;
+    LinearLayout khungTienIch;
     QuanAnModel quanAnModel;
     Toolbar toolbar;
     RecyclerView recyclerViewBinhLuan;
@@ -89,10 +90,6 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         khungTienIch = findViewById(R.id.khungTienTich);
-        txtTenWifi = findViewById(R.id.txtTenWifi);
-        txtMatKhauWifi = findViewById(R.id.txtMatKhauWifi);
-        khungWifi = findViewById(R.id.khungWifi);
-        txtNgayDangWifi = findViewById(R.id.txtNgayDangWifi);
         khungTinhNang = findViewById(R.id.khungTinhNang);
         btnBinhLuan = findViewById(R.id.btnBinhLuan);
         videoView = findViewById(R.id.videoTrailer);
@@ -157,7 +154,9 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
 
         txtTieuDeToolbar.setText(quanAnModel.getTenquanan());
         txtTenQuanAn.setText(quanAnModel.getTenquanan());
-        txtDiaChi.setText(quanAnModel.getChiNhanhQuanAnModelList().get(0).getDiachi());
+        if (quanAnModel.getChiNhanhQuanAnModelList().size() > 0) {
+            txtDiaChi.setText(quanAnModel.getChiNhanhQuanAnModelList().get(0).getDiachi());
+        }
         txtThoiGianHoatDong.setText(quanAnModel.getGiomocua() + "-" + quanAnModel.getGiodongcua());
         txtTongSoHinhAnh.setText(quanAnModel.getHinhanhquanan().size() + "");
         txtTongSoBinhLuan.setText(quanAnModel.getBinhLuanModelList().size() + "");
@@ -176,7 +175,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
 
         StorageReference storageHinhQuanAn = FirebaseStorage.getInstance().getReference().child("hinhanh").child(quanAnModel.getHinhanhquanan().get(0));
         //down hình ảnh
-        final long ONE_MEGABYTE = 1024 * 1024;
+        final long ONE_MEGABYTE = 1024 * 1024 * 5;
         storageHinhQuanAn.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
@@ -256,7 +255,8 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     TienIchModel tienIchModel = snapshot.getValue(TienIchModel.class);
-                    StorageReference storageHinhQuanAn = FirebaseStorage.getInstance().getReference().child("hinhtienich/").child(tienIchModel.getHinhtienich());
+                    StorageReference storageHinhQuanAn = FirebaseStorage.getInstance().getReference()
+                            .child("hientienich").child(tienIchModel.getHinhtienich());
                     //down hình ảnh
                     final long ONE_MEGABYTE = 1024 * 1024;
                     storageHinhQuanAn.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -285,12 +285,12 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
 
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        MapFragment f = (MapFragment) getFragmentManager()
-//                .findFragmentById(R.id.map);
-//        if (f != null)
-//            getFragmentManager().beginTransaction().remove(f).commit();
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MapFragment f = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        if (f != null)
+            getFragmentManager().beginTransaction().remove(f).commit();
+    }
 }

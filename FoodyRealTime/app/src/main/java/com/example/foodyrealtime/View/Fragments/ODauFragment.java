@@ -79,7 +79,7 @@ public class ODauFragment extends Fragment {
         super.onStart();
         sharedPreferences = getContext().getSharedPreferences("toado", Context.MODE_PRIVATE);
         Location vitrihientai = new Location("");
-        vitrihientai.setLatitude(Double.parseDouble(sharedPreferences.getString("latitude", "0")));
+        vitrihientai.setLatitude(Double.parseDouble(sharedPreferences.getString("latitdue", "0")));
         vitrihientai.setLongitude(Double.parseDouble(sharedPreferences.getString("longtitude", "0")));
         oDauController = new ODauController(getContext());
         oDauController.getDanhSachQuanAnController(getContext(), nestedScrollView, recyclerODau, progressBar, vitrihientai);
