@@ -154,7 +154,9 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
 
         txtTieuDeToolbar.setText(quanAnModel.getTenquanan());
         txtTenQuanAn.setText(quanAnModel.getTenquanan());
-        txtDiaChi.setText(quanAnModel.getChiNhanhQuanAnModelList().get(0).getDiachi());
+        if (quanAnModel.getChiNhanhQuanAnModelList().size() > 0) {
+            txtDiaChi.setText(quanAnModel.getChiNhanhQuanAnModelList().get(0).getDiachi());
+        }
         txtThoiGianHoatDong.setText(quanAnModel.getGiomocua() + "-" + quanAnModel.getGiodongcua());
         txtTongSoHinhAnh.setText(quanAnModel.getHinhanhquanan().size() + "");
         txtTongSoBinhLuan.setText(quanAnModel.getBinhLuanModelList().size() + "");
@@ -173,7 +175,7 @@ public class ChiTietQuanAnActivity extends AppCompatActivity implements OnMapRea
 
         StorageReference storageHinhQuanAn = FirebaseStorage.getInstance().getReference().child("hinhanh").child(quanAnModel.getHinhanhquanan().get(0));
         //down hình ảnh
-        final long ONE_MEGABYTE = 1024 * 1024;
+        final long ONE_MEGABYTE = 1024 * 1024 * 5;
         storageHinhQuanAn.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {

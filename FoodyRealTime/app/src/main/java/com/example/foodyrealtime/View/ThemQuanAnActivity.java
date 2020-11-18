@@ -57,6 +57,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -83,6 +84,7 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
     List<ThemThucDonModel> themThucDonModelList;
     List<Bitmap> hinhDaChup;
     List<Uri> hinhQuanAn;
+    HashMap<ImageView, Uri> mapHinhQuanAn;
     Uri videoSelected;
     Boolean isVideoSelected = false;
 
@@ -126,6 +128,7 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
         themThucDonModelList = new ArrayList<>();
         hinhDaChup = new ArrayList<>();
         hinhQuanAn = new ArrayList<>();
+        mapHinhQuanAn = new HashMap<>();
 
         adapterKhuVuc = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, khuVucList);
         spinnerKhuVuc.setAdapter(adapterKhuVuc);
@@ -156,60 +159,63 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            case RESULT_IMG1:
+            case RESULT_IMG1: {
                 if (RESULT_OK == resultCode) {
                     Uri uri = data.getData();
                     imgHinhQuan1.setImageURI(uri);
-                    hinhQuanAn.add(uri);
+                    mapHinhQuanAn.put(imgHinhQuan1, uri);
+//                    hinhQuanAn.add(uri);
                 }
                 break;
-
-            case RESULT_IMG2:
+            }
+            case RESULT_IMG2: {
                 if (RESULT_OK == resultCode) {
                     Uri uri = data.getData();
                     imgHinhQuan2.setImageURI(uri);
-                    hinhQuanAn.add(uri);
+                    mapHinhQuanAn.put(imgHinhQuan2, uri);
+//                    hinhQuanAn.add(uri);
                 }
                 break;
-
-            case RESULT_IMG3:
+            }
+            case RESULT_IMG3: {
                 if (RESULT_OK == resultCode) {
                     Uri uri = data.getData();
                     imgHinhQuan3.setImageURI(uri);
-                    hinhQuanAn.add(uri);
+                    mapHinhQuanAn.put(imgHinhQuan3, uri);
+//                    hinhQuanAn.add(uri);
                 }
                 break;
-
-            case RESULT_IMG4:
+            }
+            case RESULT_IMG4: {
                 if (RESULT_OK == resultCode) {
                     Uri uri = data.getData();
                     imgHinhQuan4.setImageURI(uri);
                     hinhQuanAn.add(uri);
                 }
                 break;
-
-            case RESULT_IMG5:
+            }
+            case RESULT_IMG5: {
                 if (RESULT_OK == resultCode) {
                     Uri uri = data.getData();
                     imgHinhQuan5.setImageURI(uri);
                     hinhQuanAn.add(uri);
                 }
                 break;
-
-            case RESULT_IMG6:
+            }
+            case RESULT_IMG6: {
                 if (RESULT_OK == resultCode) {
                     Uri uri = data.getData();
                     imgHinhQuan6.setImageURI(uri);
                     hinhQuanAn.add(uri);
                 }
                 break;
-
-            case RESULT_IMGTHUCDON:
+            }
+            case RESULT_IMGTHUCDON: {
                 Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                 imgTam.setImageBitmap(bitmap);
                 hinhDaChup.add(bitmap);
                 break;
-
+            }
             case RESULT_VIDEO:
                 if (RESULT_OK == resultCode) {
                     imgVideo.setVisibility(View.GONE);
@@ -290,7 +296,6 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
                 v.setVisibility(View.GONE);
                 btnXoaChiNhanh.setVisibility(View.VISIBLE);
                 btnXoaChiNhanh.setTag(tenChiNhanh);
-
 
                 chiNhanhList.add(tenChiNhanh);
 
@@ -402,7 +407,6 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
 
         switch (v.getId()) {
             case R.id.btnGioDongCua:
-
                 TimePickerDialog timePickerDialog = new TimePickerDialog(ThemQuanAnActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -413,7 +417,6 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
 
                 timePickerDialog.show();
                 break;
-
             case R.id.btnGioMoCua:
 
                 TimePickerDialog moCuaTimePickerDialog = new TimePickerDialog(ThemQuanAnActivity.this, new TimePickerDialog.OnTimeSetListener() {
@@ -485,10 +488,9 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
         nodeRoot.child("khuvucs").child(khuvuc).push().setValue(maQuanAn);
 
         for (String chinhanh : chiNhanhList) {
-            String urlGeoCoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + chinhanh.replace(" ", "%20") + "&key=AIzaSyAh-RADDktj-QLvLoyE0y3ia__dDEwHvvg";
+            String urlGeoCoding = "https://maps.googleapis.com/maps/api/geocode/json?address=" + chinhanh.replace(" ", "%20") + "&key=AIzaSyBVd2D3evAh1Ip_f5nuN1P6ad-14G3Ns0g";
             DownloadToaDo downloadToaDo = new DownloadToaDo();
             downloadToaDo.execute(urlGeoCoding);
-
         }
 
         QuanAnModel quanAnModel = new QuanAnModel();
@@ -496,6 +498,8 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
         quanAnModel.setGiatoida(giaToiDa);
         quanAnModel.setGiatoithieu(giaToiThieu);
         quanAnModel.setGiaohang(giaoHang);
+        quanAnModel.setGiomocua(gioMoCua);
+        quanAnModel.setGiodongcua(gioDongCua);
         if (isVideoSelected == true) {
             quanAnModel.setVideogioithieu(videoSelected.getLastPathSegment());
             FirebaseStorage.getInstance().getReference().child("video/" + videoSelected.getLastPathSegment()).putFile(videoSelected);
@@ -510,9 +514,13 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
+        for (Uri uri : mapHinhQuanAn.values()) {
+            // do something with tab
+            hinhQuanAn.add(uri);
+        }
         for (Uri hinhquan : hinhQuanAn) {
             FirebaseStorage.getInstance().getReference().child("hinhanh/" + hinhquan.getLastPathSegment()).putFile(hinhquan);
-            nodeRoot.child("hinhanhquanans").child(maQuanAn).push().child(hinhquan.getLastPathSegment());
+            nodeRoot.child("hinhanhquanans").child(maQuanAn).push().setValue(hinhquan.getLastPathSegment());
         }
 
         for (int i = 0; i < themThucDonModelList.size(); i++) {
@@ -561,6 +569,9 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
             super.onPostExecute(s);
             try {
                 JSONObject jsonObject = new JSONObject(s);
+                ChiNhanhQuanAnModel chiNhanhQuanAnModel = new ChiNhanhQuanAnModel();
+                chiNhanhQuanAnModel.setLatitude(0);
+                chiNhanhQuanAnModel.setLongtitude(0);
                 JSONArray results = jsonObject.getJSONArray("results");
                 for (int i = 0; i < results.length(); i++) {
                     JSONObject object = results.getJSONObject(i);
@@ -570,13 +581,14 @@ public class ThemQuanAnActivity extends AppCompatActivity implements View.OnClic
                     double latitude = (double) location.get("lat");
                     double longitude = (double) location.get("lng");
 
-                    ChiNhanhQuanAnModel chiNhanhQuanAnModel = new ChiNhanhQuanAnModel();
+                    chiNhanhQuanAnModel = new ChiNhanhQuanAnModel();
                     chiNhanhQuanAnModel.setDiachi(address);
                     chiNhanhQuanAnModel.setLatitude(latitude);
-                    chiNhanhQuanAnModel.setLatitude(longitude);
+                    chiNhanhQuanAnModel.setLongtitude(longitude);
 
-                    FirebaseDatabase.getInstance().getReference().child("chinhanhquanans").child(maQuanAn).push().setValue(chiNhanhQuanAnModel);
                 }
+                FirebaseDatabase.getInstance().getReference().child("chinhanhquanans").child(maQuanAn).push().setValue(chiNhanhQuanAnModel);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

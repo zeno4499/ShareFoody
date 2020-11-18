@@ -53,7 +53,7 @@ public class ODauController {
                     StorageReference storageReferenceHinhAn = FirebaseStorage.getInstance().getReference()
                             .child("hinhanh").child(linkHinh);
                     //down hình ảnh
-                    final long ONE_MEGABYTE = 1024 * 1024;
+                    final long ONE_MEGABYTE = 1024 * 1024 * 5;
                     storageReferenceHinhAn.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                         @Override
                         public void onSuccess(byte[] bytes) {

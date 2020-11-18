@@ -50,7 +50,7 @@ public class SlashScreenActivity extends AppCompatActivity implements GoogleApiC
                             // Logic to handle location object
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("latitdue", String.valueOf(location.getLatitude()));
-                            editor.putString("longtitude", String.valueOf(location.getLatitude()));
+                            editor.putString("longtitude", String.valueOf(location.getLongitude()));
                             editor.commit();
                         }
                     }
@@ -91,7 +91,7 @@ public class SlashScreenActivity extends AppCompatActivity implements GoogleApiC
                                 if (location != null) {
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString("latitdue", String.valueOf(location.getLatitude()));
-                                    editor.putString("longtitude", String.valueOf(location.getLatitude()));
+                                    editor.putString("longtitude", String.valueOf(location.getLongitude()));
                                     editor.commit();
                                 }
                             }

@@ -199,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryDark"
                 android:text="@string/luuquanan"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorW" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
